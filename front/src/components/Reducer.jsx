@@ -2,13 +2,14 @@ import React from 'react';
 
 const Context = React.createContext([])
 
-const initialState = {items:[]}
+const initialState = {connected: false, admin : false}
 
 const reducer = (state, action)=>{
     switch(action.type){
-        
-        case 'showList':
-            return {...state, items:[... action.payload]}
+        case 'login':
+            return {...state, connected:true, admin : action.payload.admin, name : action.payload.name}
+        case 'logout' :
+            return initialState
         default: 
             return state
     }
