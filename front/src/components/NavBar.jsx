@@ -3,7 +3,6 @@ import {useContext, Fragment} from "react"
 import { Context } from "./Reducer.jsx";
 
 const NavBar = (props) => {
-  
   const [state, dispatch] = useContext(Context)
   
   return (
@@ -11,8 +10,68 @@ const NavBar = (props) => {
       <ul>
         <li>
           <NavLink to="/">
-            HOME
+            HOME 
           </NavLink>
+          <p>H&4589dhs</p>
+        </li>
+        <li>
+          <NavLink to="/workshop">
+            L'ATELIER
+          </NavLink>
+          <ul>
+            <li>
+              <NavLink to="/contents">
+                Contenus 
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/calendar">
+                Calendrier
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup">
+                 S'inscrire 
+              </NavLink>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <NavLink to="/production">
+            NOS REALS
+          </NavLink>
+          <ul>
+            {
+            state.videos[0] && state.videos[0].map((item,i) => {
+                if(item.type=== 'Main_video'){
+                  let url = "metabox/"+item.id
+                  return <NavLink  key={i} to={url}><li key={i} >{item.title}</li></NavLink>
+                }
+              })
+            }
+          </ul>
+        </li>
+        <li>
+          <NavLink to="/service">
+            NOS PRESTAS
+          </NavLink>
+          <ul>
+            <li>
+              <NavLink to="/boxlease">
+                 La Box
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/youth">
+                Pour les plus jeunes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dlpali">
+                 De la page à l'image
+              </NavLink>
+            </li>
+          </ul>
         </li>
         {!state.connected &&
         <Fragment>

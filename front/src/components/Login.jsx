@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import axios from 'axios'
 import React from 'react'
-// import {Context} from './components/Reducer.jsx'
+import Logout from './Logout.jsx'
 import BASE_URL from '../config/api.js'
 import {Context} from './Reducer.jsx'
 
@@ -17,9 +17,9 @@ const Login= ()=>{
             password,
         })
         .then((res)=>{
-            console.log(res.data.admin)
-            dispatch({type:'login', payload: res.data})
-            console.log(state)
+            if(res.data.response){
+                dispatch({type:'login', payload: res.data})
+            }
         })
         .catch((err)=>{
             console.log(err)

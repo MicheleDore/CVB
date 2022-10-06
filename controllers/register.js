@@ -1,5 +1,6 @@
 import pool from '../config/database.js'
 import bcrypt from 'bcrypt'
+import checkLength from '../utilities/lengthchecker.js'
 
 const register = (req,res)=>{
     const newUser = `INSERT INTO users ( role_id, nickname, email, password, town, district, registration_date) VALUES (?,?,?,?,?,?,?)`
@@ -7,7 +8,6 @@ const register = (req,res)=>{
     const checkMail = `SELECT email FROM users WHERE email = ?`
     const saltRounds = 10
      pool.query(checkNickname, [req.body.nickname],(err, user, fields)=>{
-         console.log(user)
             if (err) throw err
             if(user[0]){
                 let messageName = 'Sorry, the nickname '+req.body.nickname+' is already taken'
@@ -18,7 +18,11 @@ const register = (req,res)=>{
                     if(address[0]){
                         let messageEmail = 'There is already an account with this email'
                         res.json(messageEmail)
-                    }else{
+                    } else if(!checkLength(req.body, 36)){
+                        let messageLength=("Fields maximum length is 36 digits")
+                        res.json(messageLength)
+                    }
+                    else{
                             bcrypt.hash(req.body.password, saltRounds, (err, hash)=>{
                                 if (err) throw err
                                 let params = [2, req.body.nickname, req.body.email, hash, req.body.town, req.body.district, new Date ]

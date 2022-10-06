@@ -13,24 +13,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(express.static("public"))
 
-app.use(session({
-	secret: 'keyboard cat',
-	resave:false,
-	saveUninitialized: true,
-	cookie: {maxAge: 3600000}
-}))
+// app.use(session({
+// 	secret: 'keyboard cat',
+// 	resave:false,
+// 	saveUninitialized: true,
+// 	cookie: {maxAge: 3600000}
+// }))
 
 // app.use( function (req, res, next){
-//     res.locals.user = req.session.user;
-    
-//     res.locals.isAdmin = !req.session.isAdmin ? false : true
+//     res.locals.user = req.session.user || null;
+//     res.locals.admin = req.session.admin || false
+//     	console.log(req.session.user)
+//     	console.log(req.session.admin)
+//     	console.log(res.locals.user)
+//     	console.log(res.locals.admin)
 //     next();
-    
 // })
 // app.use((req, res, next)=>{
 //     	let pathname = parseurl(req).pathname.split('/');
 //         const adminPath =  ['/admin']
-//     	if(!req.session.isAdmin && adminPath.includes('/'+pathname[1])){
+//     	if(!req.session.admin && adminPath.includes(pathname[1])){
 //     		res.redirect('/login');
 //     	}
 //     	else{
