@@ -11,7 +11,7 @@ const VideoList = ({children}) => {
             .then((res)=>{
                 if(res.data.response){
                     dispatch({type:'videopick', payload: res.data.videos}) 
-                    console.log(res.data.videos[0])
+                    console.log(res.data.videos)
                 }
             })
             .catch((error)=>{

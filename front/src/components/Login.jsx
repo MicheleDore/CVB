@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, Fragment, useContext} from 'react';
 import axios from 'axios'
 import React from 'react'
 import Logout from './Logout.jsx'
@@ -8,7 +8,7 @@ import {Context} from './Reducer.jsx'
 const Login= ()=>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const[state,dispatch]= React.useContext(Context)
+    const[state,dispatch]= useContext(Context)
 
     const submit = (e)=>{
         e.preventDefault()
@@ -26,7 +26,7 @@ const Login= ()=>{
         })
     };
     return (
-        <React.Fragment>
+        <Fragment>
             <form onSubmit={submit}>
                 <label>Mail:
                     <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
@@ -36,7 +36,7 @@ const Login= ()=>{
                 </label>
                 <input type='submit' value='Login'/>
             </form>
-        </React.Fragment>
+        </Fragment>
         )
 }
 

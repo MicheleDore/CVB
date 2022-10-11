@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
 const videoList = (req, res)=>{
-    let loginRequest = ` SELECT * FROM videos`
-        pool.query(loginRequest, [req.body.email],(err, videos, fields)=>{
+    let videoRequest = ` SELECT videos.*, editions.year FROM videos JOIN editions ON edition_id =editions.id`
+        pool.query(videoRequest, [req.body.email],(err, videos, fields)=>{
             if (err) throw err
             res.json({response:true, videos})
         })

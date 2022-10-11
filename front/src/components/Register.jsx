@@ -1,8 +1,7 @@
-import { useState} from 'react';
+import { useState, Fragment} from 'react';
 import axios from 'axios'
 import CheckLength from './LengthChecker'
 import CheckForbiddenChar from './CharChecker'
-import React from 'react'
 import BASE_URL from '../config/api.js'
 
 const Register= ()=>{
@@ -22,6 +21,7 @@ const Register= ()=>{
             }
     const submit = (e)=>{
         e.preventDefault()
+        
         let correctLength = CheckLength(entries, 36)
         if(!password.match(strongPassword)){
             setNotif('Your password should have at least 8 digits and include at least one special character, one number and one uppercase.')
@@ -41,10 +41,10 @@ const Register= ()=>{
         }
     };
     return (
-        <React.Fragment>
+        <Fragment>
             <form onSubmit={submit}>
                 <label>Pseudo:
-                    <input name='nickname' type='text'  value={nickname} onChange={(e) => setNickname(e.target.value)} required/>
+                    <input name='nickname' type='text' maxLength='36' value={nickname} onChange={(e) => setNickname(e.target.value)} required/>
                 </label>
                 <label>Mail:
                     <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='email'  required/>
@@ -62,7 +62,7 @@ const Register= ()=>{
                 <input type='submit' name='submit'/>
             </form>
 
-        </React.Fragment>
+        </Fragment>
         )
 }
 

@@ -6,6 +6,8 @@ const initialState = {connected: false, admin : false, videos:[]}
 
 const reducer = (state, action)=>{
     switch(action.type){
+        case 'editions':
+            return {...state, editions:action.payload}
         case 'videopick':
             return {...state, videos:[action.payload]}
         case 'login':

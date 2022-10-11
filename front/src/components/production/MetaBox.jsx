@@ -10,16 +10,13 @@ const MetaBox = ()=>{
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     let videoId = useParams()
-    console.log(videoId)
  
     useEffect(() => {
         state.videos[0] && state.videos[0].map((item,i) => {
             if(item.id == videoId.id){
-                // console.log(true)
                 setUrl(item.url)
                 setTitle(item.title)
                 setDesc(item.description)
-                console.log(url)
             }
         })
          
