@@ -15,7 +15,7 @@ import Production from './components/Production'
 import Service from './components/Service'
 import Error404 from './components/Error404.jsx'
 import Middleware from './components/Middleware.jsx'
-import Admin from './components/Admin.jsx'
+import Admin from './components/administration/Admin.jsx'
 
 function App({children}) {
   return (
@@ -34,7 +34,7 @@ function App({children}) {
         <Route path="/service" element={<Service />} />
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />}/>
-        <Route path='/admin' element={<Middleware>{<Admin />}</Middleware>}/>
+        <Route path='/admin/:name' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>

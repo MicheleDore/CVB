@@ -12,44 +12,49 @@ const checkAcceptedExtensions = (file) => {
 	return false
 }
 
+const addToDB = (params, upload, newFilename) => {
+    const newVideo = `INSERT INTO videos (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
+    const newChoice = `INSERT INTO interactions (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
+    let oldPath = upload.video.filepath
+    let newPath = `public/videos/${newFilename}`
+    const message = 'Video uploaded succesfully !'
+    pool.query(newVideo, params, (err, video, fields)=>{
+        if (err) throw err
+        fs.copyFile(oldPath, newPath, (err) => {
+            if (err) throw err
+        })
+    })
+     return(message)
+}
+
 const uploadVideo = (req, res) => {
     const form = formidable({keepExtensions: true});
-    const newVideo = `INSERT INTO videos (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
     const newEdition = `INSERT INTO editions (year) VALUES (?)`
     form.parse(req, (err, fields, upload) => {
         if (err) throw err
         let yearOptions = fields.years.split(',')
-        let editionId = fields.editionId
-        // let editionsId = fields.editions[0].split(',')
-        // let editionsYears = fields.editions[1].split(',')
         let newFilename = upload.video.newFilename
-        let oldPath = upload.video.filepath
-        let newPath = `public/videos/${newFilename}`
         let newUrl  = `http://micheledore.sites.3wa.io:9300/videos/${newFilename}`
         let message
         if(upload.originalFilename !== ''){
             if(checkAcceptedExtensions(upload.video)){
-                if(yearOptions.includes(fields.edition)){
-                    if(!editionId) {
-                        pool.query(newEdition, fields.edition, (err, edition, fields)=>{
-                            if (err) throw err
-                            editionId = edition.insertId
-                        })
-                    }
-                    console.log(editionId)
-                    let params = [fields.title, fields.type, newUrl, fields.description, editionId]
-                    pool.query(newVideo, params, (err, video, fields)=>{
-                            if (err) throw err
-                            fs.copyFile(oldPath, newPath, (err) => {
+                    if(yearOptions.includes(fields.edition)){ // validiter de l'année
+                        let params = [fields.title, fields.type, newUrl, fields.description]
+                        if(!fields.editionId) { // verrifie si cette année existe deja en BDD
+                            pool.query(newEdition, fields.edition, (err, edition, fields)=>{
                                 if (err) throw err
-                                message = 'Video uploaded succesfully !'
-                                res.json(message)
+                                params.push(edition.insertId)
+                                res.json(addToDB(params, upload, newFilename))
                             })
-                    })
-                } else {
-                    message = 'Please select a suitable edition'
-                    res.json(message)
-                }
+                        } else {
+                            params.push(fields.editionId)
+                            res.json(addToDB(params, upload, newFilename))
+                        }
+                        
+                    } else {
+                        message = 'Please select a suitable edition'
+                        res.json(message)
+                    }
                     
             } else {
                 message = 'Your video must have one of the following extensions : '+accepted
