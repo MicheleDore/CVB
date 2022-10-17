@@ -9,7 +9,7 @@ PSEUDOCODE
 7 - Mise en place du Context React 
 
 CHARGEMENT DES NOUVELLES VIDEOS PRINCIPALES
-4 - Dans la page Admin un lien permet de renvoyer au composant formulaire uploadvideo en ajoutant un params
+4 - Dans la page Admin un lien permet de renvoyer au composant formulaire uploadvideo 
 2 - création du composant formulaire : ce composant permet à l'admin de rentrer toutes les informations textuelles liées à la video et de les stocker dans le reduceur. 
-3 - Au submit le composant renvoye au chargement des vidéo, en ce faisant il fait évoluer le params, il y en a 4 qui sont envoyé dans la BDD table 'vidéo
+3 - Au submit le composant renvoye au chargement des vidéo,  il y en a 4 qui sont envoyé dans la BDD table 'vidéo
 4 - Au chargement de la dernière vidéo les ids et texte respective sont rentré dans un seul objet dans la table 'interaction'

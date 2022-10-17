@@ -35,6 +35,7 @@ function App({children}) {
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />}/>
         <Route path='/admin/:name' element={<Middleware>{<Admin />}</Middleware>}/>
+        <Route path='/admin' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>

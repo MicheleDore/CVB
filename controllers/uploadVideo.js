@@ -17,17 +17,17 @@ const addToDB = (params, upload, newFilename) => {
     const newChoice = `INSERT INTO interactions (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
     let oldPath = upload.video.filepath
     let newPath = `public/videos/${newFilename}`
-    const message = 'Video uploaded succesfully !'
     pool.query(newVideo, params, (err, video, fields)=>{
         if (err) throw err
         fs.copyFile(oldPath, newPath, (err) => {
             if (err) throw err
         })
     })
-     return(message)
+     return
 }
 
 const uploadVideo = (req, res) => {
+    console.log('test')
     const form = formidable({keepExtensions: true});
     const newEdition = `INSERT INTO editions (year) VALUES (?)`
     form.parse(req, (err, fields, upload) => {
@@ -39,6 +39,7 @@ const uploadVideo = (req, res) => {
         if(upload.originalFilename !== ''){
             if(checkAcceptedExtensions(upload.video)){
                     if(yearOptions.includes(fields.edition)){ // validiter de l'année
+                        const message = 'Video uploaded succesfully !'
                         let params = [fields.title, fields.type, newUrl, fields.description]
                         if(!fields.editionId) { // verrifie si cette année existe deja en BDD
                             pool.query(newEdition, fields.edition, (err, edition, fields)=>{
@@ -50,7 +51,7 @@ const uploadVideo = (req, res) => {
                             params.push(fields.editionId)
                             res.json(addToDB(params, upload, newFilename))
                         }
-                        
+                        res.json(message)
                     } else {
                         message = 'Please select a suitable edition'
                         res.json(message)

@@ -1,14 +1,19 @@
-import { useState, Fragment, useContext, useEffect} from 'react';
-import axios from 'axios'
-import { useParams } from "react-router-dom";
-import CheckLength from '../LengthChecker'
+import { useState, Fragment, useContext} from 'react';
 import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 import ExtractEditions from './ExtractEditions.jsx'
+import VideoForm from './VideoForm.jsx'
 import VideoUpload from './VideoUpload.jsx'
 
 const Admin= ()=>{
-    let ciao = useParams()
+    const [state, dispatch] = useContext(Context)
+    const [showForm, setShowForm] = useState(false)
+    console.log(state.newVideo)
+    
+    const videoForm = ()=>{
+        setShowForm(true)
+        console.log(state)
+    }
     // const [notif, setNotif] = useState('')
     // const [title, setTitle] = useState('')
     // const [type, setType] = useState('')
@@ -19,7 +24,7 @@ const Admin= ()=>{
     // const [choiceB, setChoiceB] = useState('')
     // const videoData = new FormData()
     // const [mainVODTitle, setMainVODTitle] = useState([])
-    // const [state, dispatch] = useContext(Context)
+    // 
     
     // let entries = {
     //     title,
@@ -101,8 +106,16 @@ const Admin= ()=>{
     return (
         <Fragment>
             <ExtractEditions />
-            <a href = 'http://micheledore.sites.3wa.io:9001/admin/uploadvideo' > Upload Video </a>
-            {ciao === 'uploadvideo' && <VideoUpload />}
+            <ul>
+            {
+            state.videos[0] && state.videos[0].map((item,i) => {
+                  return <li key={i} ><span> {item.title}</span><span> {item.year} </span><span> {item.type} </span></li>
+                })
+            }
+          </ul>
+            {!showForm && <button onClick={videoForm}> Upload Video </button>}
+            {showForm && <VideoForm />}
+            {state.newVideo && <VideoUpload />}
         </Fragment>
         )
 }
