@@ -4,15 +4,25 @@ import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 import Choice from './Choice.jsx'
 
-const VideoUpload= ()=>{
+const VideoUpload= (props)=>{
     const [state, dispatch] = useContext(Context)
     const [showForm, setShowForm] = useState(false)
     const videoData = new FormData()
     const [notif, setNotif] = useState('')
-    const [entry, setEntry] = useState('Main Video')
-    const [type, setType] = useState('Main_Video')
+    const [entry, setEntry] = useState('')
+    const [type, setType] = useState('')
     const [videoCount, setVideoCount] = useState(0)
     const [choiceValue, setChoiceValue] = useState('')
+    
+    useEffect(() => {
+        if(props.metaboxVideo){
+            setType('Main_Video')
+            setEntry('Main Video')
+        } else{
+            setType('Other')
+            setEntry('Video')
+        }
+    },[])
     
     useEffect(() => {
         if(videoCount===1){
@@ -24,33 +34,30 @@ const VideoUpload= ()=>{
             setEntry('Ending A Video')
         }
         if(videoCount===3){
+
             dispatch({type:'choiceA', payload: choiceValue })
             setType('Ending_B')
             setEntry('Ending B Video')
         }
         if(videoCount===4){
             dispatch({type:'choiceB', payload: choiceValue })
-            axios.post(`${BASE_URL}/admin`, state.newVideo)
-            .then((res)=> {
-                console.log(res.data)
-                setNotif(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+            videoData.append('dilemma', state.newVideo.dilemma)
+            videoData.append('choice_A', state.newVideo.choice_A)
+            videoData.append('choice_B', state.newVideo.choice_B)
         }
     },[videoCount])
 
     const submit = (e)=>{
         e.preventDefault()
         setVideoCount(videoCount+1)
-        console.log(state.newVideo)
         const newVideo = {...e.target.video.files};
         videoData.append('title', state.newVideo.title)
         videoData.append('type', type)
         videoData.append('video', newVideo[0], newVideo[0].name)
         videoData.append('description', state.newVideo.desc)
         videoData.append('edition', state.newVideo.edition)
+        videoData.append('editionId', state.newVideo.editionId)
+        console.log(videoData)
         axios.post(`${BASE_URL}/admin`, videoData)
         .then((res)=> {
             console.log(res.data)
@@ -67,14 +74,16 @@ const VideoUpload= ()=>{
     
     return (
         <Fragment>
+            {(videoCount === 1 && !props.metaboxVideo) ? <p>{notif}</p> :
             <form onSubmit={submit} encType='multipart/form-data'>
                 <label name='upload'>{entry} :
                     <input name='video' type='file' />
                 </label>
                 {videoCount === 2 && <Choice choice='A' choiceState={choiceValue} setChoice={middleState} />}
-                {videoCount === 3 && <Choice choice='B' />}
+                {videoCount === 3 && <Choice choice='B' choiceState={choiceValue} setChoice={middleState} />}
                 <input type='submit' name='submit'/>
-            </form>
+            </form>}
+            
         </Fragment>
         )
 }

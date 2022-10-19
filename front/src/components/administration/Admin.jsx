@@ -7,12 +7,23 @@ import VideoUpload from './VideoUpload.jsx'
 
 const Admin= ()=>{
     const [state, dispatch] = useContext(Context)
+    const [uploadButton, setUploadButton] = useState(true)
+    const [uploadMainButton, setUploadMainButton] = useState(true)
     const [showForm, setShowForm] = useState(false)
-    console.log(state.newVideo)
+    const [boxVideo, setBoxVideo] = useState(false)
     
-    const videoForm = ()=>{
+    const mainButton = ()=>{
+        setBoxVideo(true)
+        console.log(boxVideo)
+        setUploadMainButton(false)
+        setUploadButton(false)
         setShowForm(true)
-        console.log(state)
+    }
+    
+    const button = ()=>{
+        setUploadMainButton(false)
+        setUploadButton(false)
+        setShowForm(true)
     }
     // const [notif, setNotif] = useState('')
     // const [title, setTitle] = useState('')
@@ -113,9 +124,10 @@ const Admin= ()=>{
                 })
             }
           </ul>
-            {!showForm && <button onClick={videoForm}> Upload Video </button>}
-            {showForm && <VideoForm />}
-            {state.newVideo && <VideoUpload />}
+            {uploadButton && <button onClick={button}> Upload Video </button>}
+            {uploadMainButton && <button onClick={mainButton}> Upload MetaBox Video </button>}
+            {showForm && <VideoForm metaboxVideo={boxVideo} formState={showForm} toggleForm={setShowForm} />}
+            {state.newVideo && <VideoUpload metaboxVideo={boxVideo} />}
         </Fragment>
         )
 }

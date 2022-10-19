@@ -4,7 +4,7 @@ import CheckLength from '../LengthChecker'
 import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 
-const VideoForm= ()=>{
+const VideoForm= (props)=>{
     const [notif, setNotif] = useState('')
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
@@ -13,46 +13,38 @@ const VideoForm= ()=>{
     const [edition, setEdition] = useState('')
     const [editionId, setEditionId] = useState('')
     const [mainVODTitle, setMainVODTitle] = useState([])
-    
-    useEffect(() => {
-        const nameOfVOD = []
-        state.videos[0] && state.videos[0].map((item,i) => {
-            item.type === 'Main_video' && nameOfVOD.push(item.title)
-        })
-        setMainVODTitle(nameOfVOD)
-    },[])
-            
-    useEffect(()=>{
-        if(mainVODTitle.includes(title)){
-            state.videos[0] && state.videos[0].map((item,i) => {
-                if(title === item.title && item.type=== 'Main_video') {
-                  setEdition(item.year)
-                }
-            })
-        } else {
-            setEdition('')
-        }
-    },[title])
-    
-    const generateYear = () => {
-        let currentDate = new Date
-        const years = []
-        for(let index = 2021; index<= currentDate.getFullYear(); index++){
-            years.push(index)
-        }
-        return years
-    }
-    
-     
     let entries = {
         title,
         edition,
         dilemma,
         desc,
-        years: generateYear(),
+        editionId
     }
     
+    
+    // useEffect(() => {
+    //     console.log(props)
+    //     const nameOfVOD = []
+    //     state.videos[0] && state.videos[0].map((item,i) => {
+    //         item.type === 'Main_video' && nameOfVOD.push(item.title)
+    //     })
+    //     setMainVODTitle(nameOfVOD)
+    // },[])
+            
+    // useEffect(()=>{
+    //     if(mainVODTitle.includes(title)){
+    //         state.videos[0] && state.videos[0].map((item,i) => {
+    //             if(title === item.title && item.type=== 'Main_video') {
+    //               setEdition(item.year)
+    //             }
+    //         })
+    //     } else {
+    //         setEdition('')
+    //     }
+    // },[title])
+    
     useEffect(()=>{
+        console.log(editionId)
         if(state.editions){
             if(state.editions[0].includes(parseInt(edition))){
                 state.editions[1].map((item,i) => {
@@ -72,8 +64,11 @@ const VideoForm= ()=>{
         let correctLength = CheckLength(entries, 255)
         if(!correctLength){
             setNotif('Fields maximum length is 255 digits')
-        } else if (generateYear().includes(edition)){
+        } else if (state.editions[2].includes(parseInt(edition))){
+            props.toggleForm(false)
+            console.log(entries)
             dispatch({type:'newVideo', payload: entries})
+            console.log(state)
         } else {
             setNotif('Please select a suitable edition')
         }
@@ -96,14 +91,15 @@ const VideoForm= ()=>{
                 <label>Edition:
                     <select name='edition' value={edition} onChange={(e) =>  setEdition(e.target.value)} list="editions" maxLength='4' >
                              <option></option>
-                             {edition ? <option >{edition}</option> : generateYear().map((item,i) => {
+                             {edition ? <option >{edition}</option> : state.editions[2].map((item,i) => {
                                 return <option key={i}>{item}</option>
                              })}
                     </select>
                 </label>
+                {props.metaboxVideo && 
                 <label>Dilemma:
                     <input name='dilemma' value={dilemma} onChange={(e) => setDilemma(e.target.value)} type='text' maxLength='255'/>
-                </label>
+                </label>}
                 <label>Description:
                     <input name='desc' value={desc} onChange={(e) => setDesc(e.target.value)} type='text' maxLength='255'/>
                 </label>
