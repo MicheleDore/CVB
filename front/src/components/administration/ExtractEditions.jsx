@@ -16,7 +16,7 @@ const ExtractEditions= ()=>{
             editionsYears.push(item.year)
             editions.push(edition)
         })
-        for(let index = 2021; index<= 2023; index++){
+        for(let index = 2021; index<= currentDate.getFullYear(); index++){
             possibleEditions.push(index)
         }
         editionsPackage.push(editionsYears, editions, possibleEditions)
@@ -27,4 +27,3 @@ const ExtractEditions= ()=>{
 
 export default ExtractEditions
 
-// currentDate.getFullYear()

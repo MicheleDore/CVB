@@ -34,42 +34,48 @@ const VideoUpload= (props)=>{
             setEntry('Ending A Video')
         }
         if(videoCount===3){
-
             dispatch({type:'choiceA', payload: choiceValue })
             setType('Ending_B')
             setEntry('Ending B Video')
-        }
-        if(videoCount===4){
-            dispatch({type:'choiceB', payload: choiceValue })
-            videoData.append('dilemma', state.newVideo.dilemma)
-            videoData.append('choice_A', state.newVideo.choice_A)
-            videoData.append('choice_B', state.newVideo.choice_B)
         }
     },[videoCount])
 
     const submit = (e)=>{
         e.preventDefault()
-        setVideoCount(videoCount+1)
+        console.log(videoCount)
         const newVideo = {...e.target.video.files};
-        videoData.append('title', state.newVideo.title)
-        videoData.append('type', type)
-        videoData.append('video', newVideo[0], newVideo[0].name)
-        videoData.append('description', state.newVideo.desc)
-        videoData.append('edition', state.newVideo.edition)
-        videoData.append('editionId', state.newVideo.editionId)
-        console.log(videoData)
-        axios.post(`${BASE_URL}/admin`, videoData)
-        .then((res)=> {
-            console.log(res.data)
-            setNotif(res.data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            videoData.append('title', state.newVideo.title)
+            videoData.append('type', type)
+            videoData.append('video', newVideo[0], newVideo[0].name)
+            videoData.append('description', state.newVideo.desc)
+            videoData.append('edition', state.newVideo.edition)
+            videoData.append('editionId', state.newVideo.editionId)
+            
+            if(videoCount === 3 ){
+                videoData.append('dilemma', state.newVideo.dilemma)
+                videoData.append('choice_A', state.newVideo.choice_A)
+                videoData.append('choice_B', state.newVideo.choice_B)
+            }
+            console.log(videoData)
+            axios.post(`${BASE_URL}/admin`, videoData)
+            .then((res)=> {
+                console.log(res.data)
+                setNotif(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+         
+        setVideoCount(videoCount+1)
     }
 
-    const middleState =(e)=>{
+    const middleState =(e, choice)=>{
         setChoiceValue(e.target.value)
+        console.log(choice)
+        console.log(choiceValue)
+        dispatch({type:choice === "A" ?'choiceA' : 'choiceB', payload: choiceValue }) 
+        
+        
     }
     
     return (

@@ -4,6 +4,7 @@ import login from '../controllers/login.js'
 import register from '../controllers/register.js'
 import logout from '../controllers/logout.js'
 import uploadVideo from '../controllers/uploadVideo.js'
+import metaBox from '../controllers/metaBox.js'
 
 const router = express.Router()
 
@@ -12,5 +13,6 @@ router.post("/api/register", register)
 router.post("/api/login", login)
 router.get("/api/logout", logout)
 router.post("/api/admin", uploadVideo)
+router.get("/api/metabox/:movie", metaBox)
 
 export default router 

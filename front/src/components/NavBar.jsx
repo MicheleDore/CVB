@@ -43,7 +43,7 @@ const NavBar = (props) => {
           <ul>
             {
             state.videos[0] && state.videos[0].map((item,i) => {
-                if(item.type=== 'Main_video'){
+                if(item.type=== 'Main_Video'){
                   let url = "metabox/"+item.id
                   return <NavLink  key={i} to={url}><li key={i} ><p> {item.title} </p><p> {item.year} </p></li></NavLink>
                 }

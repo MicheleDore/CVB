@@ -8,13 +8,14 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
-const videoList = (req, res)=>{
-    let videoRequest = ` SELECT videos.*, editions.year FROM videos JOIN editions ON edition_id =editions.id`
-        pool.query(videoRequest,(err, videos, fields)=>{
+const metaBox = (req, res)=>{
+    let selectChoice = ` SELECT * FROM interactions WHERE movie_id= ?`
+        let movieId = parseInt(req.params.movie)
+        pool.query(selectChoice, [movieId],(err, choice, fields)=>{
             if (err) throw err
-            res.json({response:true, videos})
+            res.json({response:true, choice})
         })
 }
     
 
-export default videoList
+export default metaBox

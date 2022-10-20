@@ -2,7 +2,6 @@ import formidable from 'formidable';
 import fs from 'fs';
 import pool from '../config/database.js'
 const accepted = ['mp4', 'avi', 'mov', 'avchd']
-
 const checkAcceptedExtensions = (file) => {
 	const type = file.mimetype.split('/').pop()
 	
@@ -12,31 +11,34 @@ const checkAcceptedExtensions = (file) => {
 	return false
 }
 
-const addChoice = (fields, upload) => {
+const addChoice = (fields) => {
     const videoLot = `SELECT id FROM videos WHERE title= ?`
     const newChoice = `INSERT INTO interactions (movie_id, loop_id, ending_A, ending_B, dilemma, choice_A, choice_B) VALUES (?,?,?,?,?,?,?)`
     let params = [fields.dilemma, fields.choice_A, fields.choice_B]
+    console.log(params)
     pool.query(videoLot, fields.title,(err, videoIds, fields)=>{
         if (err) throw err
-        params.unshift(videoIds)
+        params.unshift(videoIds[0].id,videoIds[1].id,videoIds[2].id,videoIds[3].id)
         pool.query(newChoice, params, (err, video, fields)=>{
             if (err) throw err
-            console.log(params)
         })
      return
     })
 }
 
-const addVideo = (params, upload, newFilename) => {
+const addVideo = (params, upload, newFilename, other) => {
     const newVideo = `INSERT INTO videos (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
     let oldPath = upload.video.filepath
     let newPath = `public/videos/${newFilename}`
+    console.log(other)
     pool.query(newVideo, params, (err, video, fields)=>{
         if (err) throw err
         fs.copyFile(oldPath, newPath, (err) => {
             if (err) throw err
         })
+        other.choice_B && addChoice(other)
     })
+    
      return
 }
 
@@ -52,24 +54,21 @@ const uploadVideo = (req, res) => {
         let message
         if(upload.originalFilename !== ''){
             if(checkAcceptedExtensions(upload.video)){
-                  //  if(yearOptions.includes(fields.edition)){  validiter de l'année
-                  console.log(fields)
+                  //  if(yearOptions.includes(fields.edition))
                         const message = 'Video uploaded succesfully !'
                         let params = [fields.title, fields.type, newUrl, fields.description]
-                        if(!fields.editionId) { // verrifie si cette année existe deja en BDD
+                        if(!fields.editionId) { 
                             pool.query(newEdition, fields.edition, (err, edition, fields)=>{
                                 if (err) throw err
                                 params.push(edition.insertId)
-                                res.json(addVideo(params, upload, newFilename))
+                                addVideo(params, upload, newFilename, fields)
                             })
                         } else {
                             params.push(fields.editionId)
-                            addVideo(params, upload, newFilename)
+                            addVideo(params, upload, newFilename, fields)
                         }
                         res.json(message)
-                        if(fields.choice_B){
-                            res.json(addChoice(fields, upload))
-                        }
+                        
             } else {
                 message = 'Your video must have one of the following extensions : '+accepted
                 res.json(message)
