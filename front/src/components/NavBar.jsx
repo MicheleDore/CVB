@@ -1,13 +1,33 @@
+import '../App.css'
 import { NavLink } from "react-router-dom";
-import {useContext, Fragment} from "react"
+import {useContext, Fragment, useEffect} from "react"
 import { Context } from "./Reducer.jsx";
+import Login from './Login.jsx'
+import axios from 'axios'
+import BASE_URL from '../config/api.js';
 
 const NavBar = (props) => {
   const [state, dispatch] = useContext(Context)
   
+    useEffect(() => {
+    const token = localStorage.getItem("jwtToken")
+    if(!state.login && token){
+      axios.post(`${BASE_URL}/isLogged`,{token})
+      .then((res) => {
+        if(res.data.token){
+          axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
+        }
+        res.data.response && dispatch({type:'login',payload: res.data})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },[])
+  
   return (
-    <nav>
-      <ul>
+    <nav className='navBar'>
+      <ul className='navBarList'>
         <li>
           <NavLink to="/">
             HOME 
@@ -45,7 +65,12 @@ const NavBar = (props) => {
             state.videos[0] && state.videos[0].map((item,i) => {
                 if(item.type=== 'Main_Video'){
                   let url = "metabox/"+item.id
-                  return <NavLink  key={i} to={url}><li key={i} ><p> {item.title} </p><p> {item.year} </p></li></NavLink>
+                  return <NavLink  key={i} to={url}>
+                            <li key={i} >
+                              <p> {item.title} </p>
+                              <p> {item.year} </p>
+                            </li>
+                          </NavLink>
                 }
               })
             }
@@ -94,7 +119,7 @@ const NavBar = (props) => {
                 LOGOUT
               </NavLink>
             </li>
-            <p>Welcome {state.name}! </p>
+            <p>Welcome N. {state.userId}! </p>
             {state.admin && 
               <li>
                 <NavLink to="/admin">

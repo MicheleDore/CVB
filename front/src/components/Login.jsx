@@ -1,7 +1,5 @@
 import { useState, Fragment, useContext} from 'react';
 import axios from 'axios'
-import React from 'react'
-import Logout from './Logout.jsx'
 import BASE_URL from '../config/api.js'
 import {Context} from './Reducer.jsx'
 
@@ -18,7 +16,12 @@ const Login= ()=>{
         })
         .then((res)=>{
             if(res.data.response){
+                localStorage.setItem('jwtToken', res.data.token)
+                axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
                 dispatch({type:'login', payload: res.data})
+                console.log(res.data)
+            } else {
+                console.log('please check your email or password')
             }
         })
         .catch((err)=>{

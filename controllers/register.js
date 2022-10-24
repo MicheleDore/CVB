@@ -1,4 +1,4 @@
-import pool from '../config/database.js'
+import {query, asyncQuery, pool} from '../config/database.js'
 import bcrypt from 'bcrypt'
 import checkLength from '../utilities/lengthchecker.js'
 

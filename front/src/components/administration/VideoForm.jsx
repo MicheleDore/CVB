@@ -20,29 +20,7 @@ const VideoForm= (props)=>{
         desc,
         editionId
     }
-    
-    
-    // useEffect(() => {
-    //     console.log(props)
-    //     const nameOfVOD = []
-    //     state.videos[0] && state.videos[0].map((item,i) => {
-    //         item.type === 'Main_video' && nameOfVOD.push(item.title)
-    //     })
-    //     setMainVODTitle(nameOfVOD)
-    // },[])
-            
-    // useEffect(()=>{
-    //     if(mainVODTitle.includes(title)){
-    //         state.videos[0] && state.videos[0].map((item,i) => {
-    //             if(title === item.title && item.type=== 'Main_video') {
-    //               setEdition(item.year)
-    //             }
-    //         })
-    //     } else {
-    //         setEdition('')
-    //     }
-    // },[title])
-    
+
     useEffect(()=>{
         console.log(editionId)
         if(state.editions){

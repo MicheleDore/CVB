@@ -42,7 +42,6 @@ const VideoUpload= (props)=>{
 
     const submit = (e)=>{
         e.preventDefault()
-        console.log(videoCount)
         const newVideo = {...e.target.video.files};
             videoData.append('title', state.newVideo.title)
             videoData.append('type', type)
@@ -56,7 +55,6 @@ const VideoUpload= (props)=>{
                 videoData.append('choice_A', state.newVideo.choice_A)
                 videoData.append('choice_B', state.newVideo.choice_B)
             }
-            console.log(videoData)
             axios.post(`${BASE_URL}/admin`, videoData)
             .then((res)=> {
                 console.log(res.data)
@@ -71,11 +69,7 @@ const VideoUpload= (props)=>{
 
     const middleState =(e, choice)=>{
         setChoiceValue(e.target.value)
-        console.log(choice)
-        console.log(choiceValue)
-        dispatch({type:choice === "A" ?'choiceA' : 'choiceB', payload: choiceValue }) 
-        
-        
+        dispatch({type:choice === "A" ?'choiceA' : 'choiceB', payload: choiceValue })  
     }
     
     return (

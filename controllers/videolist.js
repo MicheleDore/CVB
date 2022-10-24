@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import bodyParser from 'body-parser'
-import pool from '../config/database.js'
+import {query, asyncQuery, pool} from '../config/database.js'
 const app = express();
 
 app.use(cors())

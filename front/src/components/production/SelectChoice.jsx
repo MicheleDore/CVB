@@ -8,16 +8,15 @@ const SelectChoice = (props)=>{
     const [state, dispatch] = useContext(Context)
     useEffect(() => {
         axios.get(`${BASE_URL}/metabox/${props.movie}`)
-            .then((res)=>{
-                if(res.data.response){
-                    dispatch({type:'choicepick', payload: res.data.choice[0]})
-                    console.log(state)
-                }
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-    }, []);
+        .then((res)=>{
+            if(res.data.response){
+                dispatch({type:'choicepick', payload: res.data.choice[0]})
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }, [props.movie]);
     return (
         <Fragment>
 

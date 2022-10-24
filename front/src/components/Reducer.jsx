@@ -19,9 +19,9 @@ const reducer = (state, action)=>{
         case 'videopick':
             return {...state, videos:[action.payload]}
         case 'login':
-            return {...state, connected:true, admin : action.payload.admin, name : action.payload.name}
+            return {...state, connected:true, admin : action.payload.admin, name : action.payload.name, userId: action.payload.id, userChoices: action.payload.userChoices}
         case 'logout' :
-            return initialState
+            return {...state, connected: false, admin : false, userChoices:[]}
         default: 
             return state
     }
