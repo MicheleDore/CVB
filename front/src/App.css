@@ -1,21 +1,167 @@
-.mainHomepageSection {
-  height: 30em;
+/*************************
+        FONT-FAMILY
+**************************/
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./font/Monserrat/Montserrat-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+  font-family: "Poppins";
+  src: url("./font/poppins/Poppins-Medium.ttf");
 }
+
+/*************************
+          ROOT
+**************************/
+
+:root{
+  --text-wght: 550;
+  --black: #1d1d1b;
+  --white: #e1e1e1;
+  --beautiful-blue: #435596;
+  --light-beautiful-blue: #b4b7d8;
+  --normal-blue: #66a7d1;
+  --blue-green-blue: #5bb7bf;
+  --grey: #c7d0d9;
+  --light-grey: #f0f0f0;
+}
+
+/*************************
+          GLOBALS
+**************************/
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  background-color: var(--light-grey);
+  text-decoration: none;
+  font-family: 'Poppins', sens-serif;
+  font-weight: var(--text-wght);
+}
+
+.container{
+  margin: auto;
+  width: 90%;
+  text-align: center;
+  height: 20rem;
+  border-bottom: var(--black) solid 1px;
+}
+
+.aroundFlex{
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.betweenFlex{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hidden{
+  display: none;
+}
+
+.generalList{
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--beautiful-blue);
+}
+
+a:hover{
+  color: var(--light-beautiful-blue);
+}
+
+.absolute{
+  position: relative;
+}
+
+.relative{
+  position: relative;
+}
+
+.mainColor{
+  background-color: var(--beautiful-blue);
+  color: var(--light-beautiful-blue);
+}
+
+.mainColor a {
+  color: var(--white);
+}
+
+p{
+  margin: 0;
+}
+
+/*************************
+          NAVBAR
+**************************/
 
 .navBar{
-  background-color: #435596;
-  color: white;
+  font-size: 1rem;
+  position: relative;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
 }
 
-.navBarList{
-   
+.topNav{
+  top:0;
+  left:0;
+  color: var(--beautiful-blue);
+  background-color: var(--light-grey);
+  border-bottom: var(--black) solid 1px;
+}
+
+.bottomNav{
+  bottom:0;
+  left:0;
+  position: fixed;
+}
+
+.smallMenu{
+  top:100%;
+  left:0;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.smallMenu p{
+  margin: 0.5rem;
+}
+
+/*************************
+        HOMEVIDEO
+**************************/
+
+#homeVideo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  
+}
+
+.scroll{
+  overflow: scroll;
 }

@@ -1,9 +1,7 @@
 import {  BrowserRouter,  Routes,  Route } from "react-router-dom"
-import React from 'react'
 import Nav from "./components/NavBar";
 import VideoList from './components/VideoList.jsx'
 import Home from './components/Home.jsx'
-import Register from './components/Register.jsx'
 import Login from './components/Login.jsx'
 import Logout from './components/Logout.jsx'
 import Workshop from './components/Workshop'
@@ -22,7 +20,7 @@ function App({children}) {
     <BrowserRouter>
     <Nav />
     <VideoList />
-    <Routes>
+    <Routes >
         <Route path="*" element={<Error404 />} />
         <Route path="/" element={<Home />} />
         <Route path='/workshop' element={<Workshop />}/>
@@ -33,14 +31,12 @@ function App({children}) {
         <Route path='/metabox/:id' element={<MetaBox />}/>
         <Route path="/service" element={<Service />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/register' element={<Register />}/>
         <Route path='/admin/:name' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path='/admin' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>
-  );
-
+  )
 }
 
 export default App;

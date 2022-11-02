@@ -2,10 +2,16 @@ import React from 'react';
 
 const Context = React.createContext([])
 
-const initialState = {connected: false, admin : false, videos:[]}
+const initialState = {connected: false, admin : false, videos:[], bottomNav: true}
 
 const reducer = (state, action)=>{
     switch(action.type){
+        case 'offBottomNav':
+            return {...state, bottomNav: false}
+        case 'onBottomNav':
+            return {...state, bottomNav: true}
+        case 'vote':
+            return {...state, userChoices:[...state.userChoices, action.payload]}
         case 'choicepick':
             return {...state, choice:action.payload}
         case 'choiceB':

@@ -6,6 +6,7 @@ import SelectChoice from './SelectChoice.jsx'
 import Comment from './Comment.jsx'
 import axios from 'axios'
 import BASE_URL from '../../config/api.js'
+import Login from '../Login.jsx'
 
 const MetaBox = ()=>{
     const[state,dispatch]= useContext(Context)
@@ -41,7 +42,6 @@ const MetaBox = ()=>{
                     setComment(false)
                 }
             })
-        console.log(comment)
     },[state.choice])
     
     const startLoop =(()=>{
@@ -85,6 +85,7 @@ const MetaBox = ()=>{
     }
     
     const castVote = (vote)=>{
+        dispatch({type:'vote',payload: state.choice.id})
         axios.post(`${BASE_URL}/metavote`,{
             choiceId : state.choice.id,
             userId,
@@ -110,7 +111,6 @@ const MetaBox = ()=>{
     
     return (
         <Fragment>
-        {console.log(state)}
             <SelectChoice movie ={videoId.id} />
             <video id='theatre' src={url} width="480" height="320" preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
             <h1>{title}</h1>
@@ -121,7 +121,11 @@ const MetaBox = ()=>{
                     <button onClick={makeChoiceB}>{state.choice.choice_B}</button>
                 </span>}
             </h3> 
-                {(choice && !state.connected) && <h2>Pour pouvoir choisir connecte-toi...</h2>}
+            {(choice && !state.connected) && <div>
+                    <h2>Pour pouvoir choisir connecte-toi...</h2>
+                    <Login />
+                </div>
+            }
             {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
         </Fragment>
     )

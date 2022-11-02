@@ -1,44 +1,79 @@
 import '../App.css'
 import { NavLink } from "react-router-dom";
-import {useContext, Fragment, useEffect} from "react"
+import {useContext, Fragment, useEffect, useState, useRef} from "react"
 import { Context } from "./Reducer.jsx";
-import Login from './Login.jsx'
 import axios from 'axios'
 import BASE_URL from '../config/api.js';
 
 const NavBar = (props) => {
   const [state, dispatch] = useContext(Context)
+  const [menus, setMenus] = useState({workshop: false, prods: false, services:false})
   
-    useEffect(() => {
-    const token = localStorage.getItem("jwtToken")
-    if(!state.login && token){
-      axios.post(`${BASE_URL}/isLogged`,{token})
-      .then((res) => {
-        if(res.data.token){
-          axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
-        }
-        res.data.response && dispatch({type:'login',payload: res.data})
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  const showWorkshop = ()=>{
+    if(!menus.workshop){
+       setMenus({workshop: true, prods: false, services:false})
+       console.log(menus)
+    } else {
+      setMenus({...menus, workshop: false})
     }
-  },[])
+  }
   
+  const showProds = ()=>{
+    if(!menus.prods){
+       setMenus({workshop: false, prods: true, services:false})
+    } else {
+      setMenus({...menus, prods: false})
+    }
+  }
+  
+  const showServices = ()=>{
+    if(!menus.services){
+       setMenus({workshop: false, prods: false, services:true})
+    } else {
+      setMenus({...menus, services: false})
+    }
+  }
+
+    useEffect(() => {
+      const token = localStorage.getItem("jwtToken")
+      if(!state.login && token){
+        axios.post(`${BASE_URL}/isLogged`,{token})
+        .then((res) => {
+          if(res.data.token){
+            axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
+          }
+            res.data.response && dispatch({type:'login',payload: res.data})
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
+    },[])
+    
   return (
-    <nav className='navBar'>
-      <ul className='navBarList'>
-        <li>
-          <NavLink to="/">
-            HOME 
-          </NavLink>
-          <p>H&4589dhs</p>
-        </li>
-        <li>
-          <NavLink to="/workshop">
-            L'ATELIER
-          </NavLink>
-          <ul>
+    <Fragment >
+      <nav>
+        {state.bottomNav && <div className=' topNav aroundFlex navBar'>
+          <ul className='generalList aroundFlex navBar'>
+            <li>
+              <NavLink to="/workshop" onClick={showWorkshop}>
+                L'ATELIER
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/production" onClick={showProds}>
+                NOS REALS
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/service" onClick={showServices}>
+                NOS PRESTAS
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        }
+        {menus.workshop && <ul className="absolute generalList mainColor smallMenu" >
             <li>
               <NavLink to="/contents">
                 Contenus 
@@ -55,32 +90,24 @@ const NavBar = (props) => {
               </NavLink>
             </li>
           </ul>
-        </li>
-        <li>
-          <NavLink to="/production">
-            NOS REALS
-          </NavLink>
-          <ul>
-            {
-            state.videos[0] && state.videos[0].map((item,i) => {
-                if(item.type=== 'Main_Video'){
-                  let url = "metabox/"+item.id
-                  return <NavLink  key={i} to={url}>
-                            <li key={i} >
-                              <p> {item.title} </p>
-                              <p> {item.year} </p>
-                            </li>
-                          </NavLink>
-                }
-              })
-            }
+        }
+        {menus.prods && <ul className="absolute generalList mainColor smallMenu">
+              {
+              state.videos[0] && state.videos[0].map((item,i) => {
+                  if(item.type=== 'Main_Video'){
+                    let url = "metabox/"+item.id
+                    return <NavLink  key={i} to={url}>
+                              <li key={i} className='betweenFlex'>
+                                <p> {item.title} </p>
+                                <p> {item.year} </p>
+                              </li>
+                            </NavLink>
+                  }
+                })
+              }
           </ul>
-        </li>
-        <li>
-          <NavLink to="/service">
-            NOS PRESTAS
-          </NavLink>
-          <ul>
+        }
+        {menus.services && <ul className="absolute generalList mainColor smallMenu">
             <li>
               <NavLink to="/boxlease">
                  La Box
@@ -97,42 +124,48 @@ const NavBar = (props) => {
               </NavLink>
             </li>
           </ul>
-        </li>
-        {!state.connected &&
-        <Fragment>
-          <li>
-              <NavLink to="/register">
-              REGISTER
-              </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">
-              LOGIN
-            </NavLink>
-          </li>
-        </Fragment>
         }
-        {state.connected && 
-          <Fragment>
-            <li>
-              <NavLink to="/logout">
-                LOGOUT
-              </NavLink>
-            </li>
-            <p>Welcome N. {state.userId}! </p>
-            {state.admin && 
+        {state.bottomNav && <div className='navBar bottomNav normalBlue mainColor'>
+            <ul className='aroundFlex generalList'>
               <li>
-                <NavLink to="/admin">
-                  ADMIN
+                <p>H&4589dhs</p>
+              </li>
+              <li>
+                <NavLink to="/">
+                  HOME 
                 </NavLink>
               </li>
-            }
-          </Fragment>
-          
+              {!state.connected &&
+              <Fragment>
+                <li>
+                  <NavLink to="/login">
+                    LOGIN
+                  </NavLink>
+                </li>
+              </Fragment>
+              }
+              {state.connected && 
+                <Fragment>
+                  <li>
+                    <NavLink to="/logout">
+                      LOGOUT
+                    </NavLink>
+                  </li>
+                  <p>Welcome N. {state.userId}! </p>
+                  {state.admin && 
+                    <li>
+                      <NavLink to="/admin">
+                        ADMIN
+                      </NavLink>
+                    </li>
+                  }
+                </Fragment>
+              }
+            </ul>
+          </div>
         }
-        
-      </ul>
-    </nav>
+        </nav>
+    </Fragment>
   );
 };
 

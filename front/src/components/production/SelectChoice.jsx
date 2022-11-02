@@ -16,7 +16,7 @@ const SelectChoice = (props)=>{
         .catch((error)=>{
             console.log(error)
         })
-    }, [props.movie]);
+    }, [props.movie, dispatch]);
     return (
         <Fragment>
 

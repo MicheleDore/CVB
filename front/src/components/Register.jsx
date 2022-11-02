@@ -19,14 +19,15 @@ const Register= ()=>{
                 town,
                 district
             }
+        
     const submit = (e)=>{
         e.preventDefault()
         
         let correctLength = CheckLength(entries, 36)
         if(!password.match(strongPassword)){
             setNotif('Your password should have at least 8 digits and include at least one special character, one number and one uppercase.')
-        }else if(!CheckForbiddenChar(entries)){
-            setNotif('Your inputs cannot include empty spaces')
+        }else if(!CheckForbiddenChar(password)){
+            setNotif('Your password cannot include empty spaces')
         } else if(!correctLength){
             setNotif('Fields maximum length is 36 digits')
         }  
@@ -36,7 +37,7 @@ const Register= ()=>{
                 setNotif(res.data)
             })
             .catch((error)=>{
-                console.log(error+" tu m'as eu!")
+                console.log(error)
             })
         }
     };
@@ -61,7 +62,6 @@ const Register= ()=>{
                 </label>
                 <input type='submit' name='submit'/>
             </form>
-
         </Fragment>
         )
 }

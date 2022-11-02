@@ -28,8 +28,10 @@ const Comment = (props)=>{
             userId
         })
         .then((res)=>{
+            console.log(res.data)
             if(res.data.response){
                 setComment('')
+                
             }
         })
         .catch((err)=>{
@@ -38,6 +40,12 @@ const Comment = (props)=>{
     }
     return (
         <Fragment>
+            <form onSubmit={submit}>
+                <label>Hi N.{userId}. Please do leave us your thoughts:
+                    <input name='comment' type='textarea' maxLength='566' value={comment} onChange={(e) => setComment(e.target.value)} required/>
+                </label>
+                <input type='submit' name='submit'/>
+            </form>
             <ul>
                 {commentList.map((item, i)=>{
                     return <li key={i} >
@@ -51,12 +59,6 @@ const Comment = (props)=>{
                             </li>
                 })}
             </ul>
-            <form onSubmit={submit}>
-                <label>Hi N.{userId}. Please do leave us your thoughts:
-                    <input name='comment' type='textarea' maxLength='566' value={comment} onChange={(e) => setComment(e.target.value)} required/>
-                </label>
-                <input type='submit' name='submit'/>
-            </form>
         </Fragment>
     )
 }
