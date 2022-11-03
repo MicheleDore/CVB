@@ -1,40 +1,56 @@
 import '../App.css'
-import {Fragment, useContext, useEffect} from 'react'
+import {Fragment, useContext, useEffect, useState} from 'react'
 import Workshop from './Workshop'
 import Production from './Production'
 import Service from './Service'
 import {Context} from './Reducer.jsx'
+import flecheBlue from "../graphisme/flèche-blue.png"
+import flecheViolet from "../graphisme/flèche-violet.png"
 
 const Home = ()=>{
     const [state, dispatch] = useContext(Context)
+    const [topNavBar, setTopNavBar] = useState(state.topNav)
     
     useEffect(() => {
-        const toTop = window.scrollY
-        if (window.scrollY=== toTop){
+        setTopNavBar(false)
+        dispatch({type: 'toggleTopNav', payload: topNavBar})
+    }, []);
+    
+    const toggleTopNavBar = ()=>{
+        dispatch({type: 'toggleTopNav'})
+        console.log(state.topNav)
+    }
+    
+    const handleScroll = event => {
+          if (window.scrollY=== 0){
             dispatch({type:'offBottomNav'})
+        } else {
+            dispatch({type:'onBottomNav'})
         }
-        const handleScroll = event => {
-          dispatch({type:'onBottomNav'})
-        }
-        
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      dispatch({type:'onBottomNav'})
-    };
-  }, []);
+    }
+    
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+    }, [window.scrollY]);
   
     return (
         <Fragment>
-            <div>
-                <video id='homeVideo' src='http://micheledore.sites.3wa.io:9001/video/Les_ateliers_des_confluences_de_Community_VideoBox.mp4' width="480" height="320" preload="auto" autoPlay loop muted > Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
-                <section className="container">
-                </section>
-                <Workshop />
-                <Production />
-                <Service />
+            <div className='relative'>
+                <video id='homeVideo' src='http://micheledore.sites.3wa.io:9001/video/Les_ateliers_des_confluences_de_Community_VideoBox.mp4' width="480" height="320" preload="auto" autoPlay loop muted > Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.
+                </video>
+                <div className='aroundFlex welcome'>
+                    <div className='topNavButton betweenFlex animWelcome column' onClick={toggleTopNavBar}>
+                        <img className='topArrow animFlecheViolet' alt='Discover us' src={flecheViolet}/>
+                        <img className='bottomArrow' alt='Discover us' src={flecheBlue}/>
+                    </div>
+                </div>
             </div>
+            <section className="container">
+            </section>
+            <Workshop />
+            <Production />
+            <Service />
+
         </Fragment>
     )
 }

@@ -22,7 +22,6 @@ const Register= ()=>{
         
     const submit = (e)=>{
         e.preventDefault()
-        
         let correctLength = CheckLength(entries, 36)
         if(!password.match(strongPassword)){
             setNotif('Your password should have at least 8 digits and include at least one special character, one number and one uppercase.')

@@ -1,13 +1,17 @@
 import '../App.css'
 import { NavLink } from "react-router-dom";
-import {useContext, Fragment, useEffect, useState, useRef} from "react"
+import {useContext, Fragment, useEffect, useState, } from "react"
 import { Context } from "./Reducer.jsx";
 import axios from 'axios'
 import BASE_URL from '../config/api.js';
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom"
 
 const NavBar = (props) => {
   const [state, dispatch] = useContext(Context)
   const [menus, setMenus] = useState({workshop: false, prods: false, services:false})
+  
+  const location = useLocation()
   
   const showWorkshop = ()=>{
     if(!menus.workshop){
@@ -33,6 +37,20 @@ const NavBar = (props) => {
       setMenus({...menus, services: false})
     }
   }
+  
+  useEffect(()=>{
+    let menu = {}
+    if(location.pathname==='/workshop'){
+      menu={workshop: true, prods: false, services:false}
+    } else if (location.pathname==='/production'){
+      menu={workshop: false, prods: true, services:false}
+    }else if (location.pathname==='/service'){
+      menu={workshop: false, prods: false, services:true}
+    } else {
+      menu = {workshop: false, prods: false, services:false}
+    }
+    return setMenus(menu)
+  },[location.pathname])
 
     useEffect(() => {
       const token = localStorage.getItem("jwtToken")
@@ -53,8 +71,8 @@ const NavBar = (props) => {
   return (
     <Fragment >
       <nav>
-        {state.bottomNav && <div className=' topNav aroundFlex navBar'>
-          <ul className='generalList aroundFlex navBar'>
+        <div className={`${!state.topNav && location.pathname=== '/'? "hidden" : "reset"} smallpadding aroundFlex navBar relative`}>
+          <ul className={`${location.pathname === '/'? "column absolute navButtons" : "topNav"} generalList aroundFlex smallpadding navBar ${!state.topNav && location.pathname=== '/'? "hideButtons" : "animWelcome"}`}>
             <li>
               <NavLink to="/workshop" onClick={showWorkshop}>
                 L'ATELIER
@@ -72,8 +90,7 @@ const NavBar = (props) => {
             </li>
           </ul>
         </div>
-        }
-        {menus.workshop && <ul className="absolute generalList mainColor smallMenu" >
+        {menus.workshop && <ul className="generalList mainColor smallMenu" >
             <li>
               <NavLink to="/contents">
                 Contenus 
@@ -91,7 +108,7 @@ const NavBar = (props) => {
             </li>
           </ul>
         }
-        {menus.prods && <ul className="absolute generalList mainColor smallMenu">
+        {menus.prods && <ul className="generalList mainColor smallMenu">
               {
               state.videos[0] && state.videos[0].map((item,i) => {
                   if(item.type=== 'Main_Video'){
@@ -107,7 +124,7 @@ const NavBar = (props) => {
               }
           </ul>
         }
-        {menus.services && <ul className="absolute generalList mainColor smallMenu">
+        {menus.services && <ul className="generalList mainColor smallMenu">
             <li>
               <NavLink to="/boxlease">
                  La Box
@@ -125,7 +142,7 @@ const NavBar = (props) => {
             </li>
           </ul>
         }
-        {state.bottomNav && <div className='navBar bottomNav normalBlue mainColor'>
+        {(state.bottomNav || location.pathname!=='/') && <div className='smallpadding navBar relative bottomNav normalBlue mainColor'>
             <ul className='aroundFlex generalList'>
               <li>
                 <p>H&4589dhs</p>

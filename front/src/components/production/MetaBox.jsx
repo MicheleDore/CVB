@@ -110,7 +110,7 @@ const MetaBox = ()=>{
     },[vote])
     
     return (
-        <Fragment>
+        <Fragment> 
             <SelectChoice movie ={videoId.id} />
             <video id='theatre' src={url} width="480" height="320" preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
             <h1>{title}</h1>

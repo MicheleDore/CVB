@@ -2,10 +2,18 @@ import React from 'react';
 
 const Context = React.createContext([])
 
-const initialState = {connected: false, admin : false, videos:[], bottomNav: true}
+const initialState = {
+    connected: false,
+    admin : false,
+    videos:[],
+    bottomNav: false,
+    topNav:false
+}
 
 const reducer = (state, action)=>{
     switch(action.type){
+        case 'toggleTopNav':
+            return {...state, topNav: !state.topNav}
         case 'offBottomNav':
             return {...state, bottomNav: false}
         case 'onBottomNav':
