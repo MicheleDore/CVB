@@ -6,6 +6,9 @@ import VideoForm from './VideoForm.jsx'
 import VideoUpload from './VideoUpload.jsx'
 import VideoUpdate from './VideoUpdate.jsx'
 
+/*Cette vue permet aux administrateurs de charger une vidéo, la mettre à jour 
+où de charger une suite de 4 vidéos destinés à la vision dans la MetaBox*/
+
 const Admin= ()=>{
     const [state, dispatch] = useContext(Context)
     const [uploadVideo, setUploadVideo] = useState(true)
@@ -41,7 +44,9 @@ const Admin= ()=>{
     
     return (
         <Fragment>
-            <ExtractEditions />
+            <ExtractEditions /> {/*ce composant est appellé pour s'assurer que l'administrateur ne rentre pas une année invalide, 
+            les éditions existantes sont chargées dans le reducer*/}
+            {/*Les vidéos déjà présentes en BDD sont affichées et peuvent être mises à jour mais pas supprimées*/}
             <ul>
             {
             (state.videos[0] && videoList) && state.videos[0].map((item,i) => {
@@ -55,6 +60,7 @@ const Admin= ()=>{
                           </li>
                 })
             }
+            {/*Les boutons s'affichent en fonction des interactions de l'admin*/}
           </ul>
             {uploadVideo && <button onClick={videoForm}> Upload Video </button>}
             {uploadBoxVideo && <button onClick={metaboxVideoForm}> Upload MetaBox Video </button>}

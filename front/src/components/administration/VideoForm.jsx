@@ -4,6 +4,8 @@ import CheckLength from '../LengthChecker'
 import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 
+/*Ce composant permet à l'utilisateur de charger les informations textuelles relative à une vidéo*/
+
 const VideoForm= (props)=>{
     const [notif, setNotif] = useState('')
     const [title, setTitle] = useState('')
@@ -12,7 +14,7 @@ const VideoForm= (props)=>{
     const [state, dispatch] = useContext(Context)
     const [edition, setEdition] = useState('')
     const [editionId, setEditionId] = useState('')
-    const [mainVODTitle, setMainVODTitle] = useState([])
+    const [mainVODTitle, setMainVODTitle] = useState([]) /*Un State Inutile ??*/
     let entries = {
         title,
         edition,
@@ -20,6 +22,9 @@ const VideoForm= (props)=>{
         desc,
         editionId
     }
+
+/*Les editions disponibles sont suggerée à l'administrateur,
+stocké dans le reducer par le composant ExtractEditions*/
 
     useEffect(()=>{
         console.log(editionId)
@@ -37,6 +42,9 @@ const VideoForm= (props)=>{
         }
     },[edition])
             
+/*La longueur des informations rélatives à la vidéo est vérifié par l'élément
+CheckLength pour être conforme à la BDD, si toutes le si informations sont 
+validée elles sont stocké dans le réduceur*/
     const submit = (e)=>{
         e.preventDefault()
         let correctLength = CheckLength(entries, 255)

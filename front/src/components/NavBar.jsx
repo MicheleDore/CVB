@@ -13,6 +13,7 @@ const NavBar = (props) => {
   
   const location = useLocation()
   
+  /*Les functions suivantes utilisent le state MENUS pour gérer l'affichage conditionnel des menus déroulants*/
   const showWorkshop = ()=>{
     if(!menus.workshop){
        setMenus({workshop: true, prods: false, services:false})
@@ -52,6 +53,8 @@ const NavBar = (props) => {
     return setMenus(menu)
   },[location.pathname])
 
+/*Système de persistance de session avec token*/
+
     useEffect(() => {
       const token = localStorage.getItem("jwtToken")
       if(!state.login && token){
@@ -71,6 +74,8 @@ const NavBar = (props) => {
   return (
     <Fragment >
       <nav>
+      {/*Les affichages conditionnels et la gestion des classes sont gerées par le composant Home à travers le state 
+      pour offrir une XU plus dynamique au chargement de la HOMEPAGE*/}
         <div className={`${!state.topNav && location.pathname=== '/'? "hidden" : "reset"} smallpadding aroundFlex navBar relative`}>
           <ul className={`${location.pathname === '/'? "column absolute navButtons" : "topNav"} generalList aroundFlex smallpadding navBar ${!state.topNav && location.pathname=== '/'? "hideButtons" : "animWelcome"}`}>
             <li>
@@ -108,18 +113,18 @@ const NavBar = (props) => {
             </li>
           </ul>
         }
-        {menus.prods && <ul className="generalList mainColor smallMenu">
+        {menus.prods && <ul className="generalList mainColor smallMenu"> {/*Mappe les productions principales stockées dans le reducer*/}
               {
               state.videos[0] && state.videos[0].map((item,i) => {
                   if(item.type=== 'Main_Video'){
-                    let url = "metabox/"+item.id
+                    let url = "metabox/"+item.id 
                     return <NavLink  key={i} to={url}>
                               <li key={i} className='betweenFlex'>
                                 <p> {item.title} </p>
                                 <p> {item.year} </p>
                               </li>
                             </NavLink>
-                  }
+                  } {/*Chaque lien appel le composant MetaBox qui affiche avec sa routine la vidéo sélectionnée*/}
                 })
               }
           </ul>
@@ -151,7 +156,7 @@ const NavBar = (props) => {
                 <NavLink to="/">
                   HOME 
                 </NavLink>
-              </li>
+              </li> {/*Le information de connection sont récuperée dans le Reducer*/}
               {!state.connected &&
               <Fragment>
                 <li>

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Context } from "./Reducer.jsx";
 import { adminPath } from '../config/adminpath.js'
 
+/* Ce middleware protége uniquement les routes ADMIN */
 const Middleware = ({children}) => {
     const [state, dispatch] = useContext(Context)
     const navigate = useNavigate();

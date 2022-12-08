@@ -3,6 +3,9 @@ import { Context } from "./Reducer.jsx"
 import axios from 'axios'
 import BASE_URL from '../config/api.js'
 
+/*Ce composant interroge la BDD pour récuperer tous les information relatives 
+    au vidéos stockées et à l'edition à laquelle elles appartiennes et stocke tout dans le reducer*/
+
 const VideoList = ({children}) => {
     const [state, dispatch] = useContext(Context)
 

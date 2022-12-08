@@ -8,9 +8,11 @@ import Register from './Register.jsx'
 const Login= ()=>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const[state,dispatch]= useContext(Context)
+    const [state,dispatch]= useContext(Context)
     const [register, setRegister] = useState(false)
-
+    
+    /* Cette function passe dans le reduceur les informations liées à l'utilisateur
+    provénantes de la BDD et génère le token nécessaire pour la persistance de sa session*/
     const submit = (e)=>{
         e.preventDefault()
         axios.post(`${BASE_URL}/login`,{
@@ -24,6 +26,8 @@ const Login= ()=>{
                 dispatch({type:'login', payload: res.data})
                 console.log(res.data)
             } else {
+                /*si l'utilisateur n'est pas présent en BDD ou le mot de pass est mauvais,
+                l'utilisateur reçoit un message*/
                 console.log('please check your email or password')
             }
         })
@@ -39,6 +43,7 @@ const Login= ()=>{
     
     return (
         <Fragment>
+        {/*Ce composant est un modale ce qui permet à l'uilisateur de ce connecter sans sortir de sa navigation*/}
         <Modal show={register} onHide={showRegister}>
             <Modal.Header >
               <Modal.Title>Registration</Modal.Title>

@@ -11,15 +11,23 @@ const Home = ()=>{
     const [state, dispatch] = useContext(Context)
     const [topNavBar, setTopNavBar] = useState(state.topNav)
     
+    /* La Barre de Navigation est minimisé au chargement pour garantier 
+    une XU plus immersive avec une vidéo de présentation au teaser*/
+    
     useEffect(() => {
         setTopNavBar(false)
         dispatch({type: 'toggleTopNav', payload: topNavBar})
     }, []);
     
+    /*La barre apparaît à l'appui d'un bouton par l'utilisateur,...*/
+    
+    
     const toggleTopNavBar = ()=>{
         dispatch({type: 'toggleTopNav'})
         console.log(state.topNav)
     }
+    
+    /*...ou au scroll vers le bas...*/
     
     const handleScroll = event => {
           if (window.scrollY=== 0){
@@ -32,6 +40,8 @@ const Home = ()=>{
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
     }, [window.scrollY]);
+    
+    /*...elle disparait quand la view revienne en haut de la page*/
   
     return (
         <Fragment>

@@ -3,6 +3,9 @@ import {useState, useEffect, Fragment} from 'react'
 import BASE_URL from '../../config/api.js'
 import axios from 'axios'
 
+/*Ce composant affiche les commentaires liés à une vidéo spécifique
+et permet à l'utilisateur de commenter à son tour*/
+
 const Comment = (props)=>{
     const [comment, setComment]= useState('')
     const [commentList, setCommentList]= useState([])
@@ -10,7 +13,6 @@ const Comment = (props)=>{
     let userId = props.user
     
      useEffect((props) => {
-         
         axios.post(`${BASE_URL}/debate`, {choiceId})
             .then((res)=>{
                 setCommentList(res.data)
@@ -31,7 +33,6 @@ const Comment = (props)=>{
             console.log(res.data)
             if(res.data.response){
                 setComment('')
-                
             }
         })
         .catch((err)=>{

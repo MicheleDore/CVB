@@ -4,6 +4,9 @@ import { Context } from "../Reducer.jsx"
 import axios from 'axios'
 import BASE_URL from '../../config/api.js'
 
+/*Au chargement du composant MetaBox ce composant récupère en BDD
+tous les autres vidéos nécessaires pour terminer l'experience avec l'interaction*/
+
 const SelectChoice = (props)=>{
     const [state, dispatch] = useContext(Context)
     useEffect(() => {
@@ -17,6 +20,7 @@ const SelectChoice = (props)=>{
             console.log(error)
         })
     }, [props.movie, dispatch]);
+    /*ce return est-il nécessaire ?*/
     return (
         <Fragment>
 

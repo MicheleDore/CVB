@@ -4,6 +4,10 @@ import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 import Choice from './Choice.jsx'
 
+/*Ce composant vérifie quel type de vidéo est chargée
+(une séquence de 4 ou une vidéo seule)
+et fait la réquete pour insertion en BDD*/
+
 const VideoUpload= (props)=>{
     const [state, dispatch] = useContext(Context)
     const [showForm, setShowForm] = useState(false)
@@ -13,7 +17,7 @@ const VideoUpload= (props)=>{
     const [type, setType] = useState('')
     const [videoCount, setVideoCount] = useState(0)
     const [choiceValue, setChoiceValue] = useState('')
-    
+
     useEffect(() => {
         if(props.metaboxVideo){
             setType('Main_Video')
@@ -23,6 +27,9 @@ const VideoUpload= (props)=>{
             setEntry('Video')
         }
     },[])
+    
+    /*Ce useEffect permet de tenir trace de la séquence lors
+    d'un chargement de 4 vidéo de suite*/
     
     useEffect(() => {
         if(videoCount===1){
@@ -66,7 +73,11 @@ const VideoUpload= (props)=>{
          
         setVideoCount(videoCount+1)
     }
-
+    
+    /*Une valeur 1 ou 2 est automatiquement assignée aux vidéos qui correspondent au
+    choix fait par l'utilisateur lors de l'interaction avec la MetaBox, elle permettra
+    de décompter les vote en BDD*/
+    
     const middleState =(e, choice)=>{
         setChoiceValue(e.target.value)
         dispatch({type:choice === "A" ?'choiceA' : 'choiceB', payload: choiceValue })  

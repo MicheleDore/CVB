@@ -1,7 +1,7 @@
 import { useState, Fragment} from 'react';
 import axios from 'axios'
 import CheckLength from './LengthChecker'
-import CheckForbiddenChar from './CharChecker'
+import CheckForbiddenChar from './CheckForbiddenChar'
 import BASE_URL from '../config/api.js'
 
 const Register= ()=>{
@@ -19,10 +19,15 @@ const Register= ()=>{
                 town,
                 district
             }
+            
+    /*Cette fonction verifie la validité du mot de passe et utilise les composants CheckLength
+    et CheckForbiddenChar pour vérifier que le données ont les bon nombre de charactére et ne 
+    contiennent pas d'espaces...*/
         
     const submit = (e)=>{
         e.preventDefault()
         let correctLength = CheckLength(entries, 36)
+        /*... en cas contraire il notifie l'utilisateur sans faire aucune requete en BDD*/
         if(!password.match(strongPassword)){
             setNotif('Your password should have at least 8 digits and include at least one special character, one number and one uppercase.')
         }else if(!CheckForbiddenChar(password)){

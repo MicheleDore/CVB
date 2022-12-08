@@ -18,18 +18,18 @@ import Admin from './components/administration/Admin.jsx'
 function App({children}) {
   return (
     <BrowserRouter>
-    <Nav />
-    <VideoList />
+    <Nav /> {/* Barre de navigation, elle contient aussi le useEffect responsable pour la persistance des sections */}
+    <VideoList /> {/* Recupère tous les vidéos présents en base de donnée */}
     <Routes >
         <Route path="*" element={<Error404 />} />
         <Route path="/" element={<Home />} />
-        <Route path='/workshop' element={<Workshop />}/>
-        <Route path='/contents' element={<Contents />}/>
-        <Route path='/calendar' element={<Calendar />}/>
-        <Route path='/signup' element={<Signup />}/>
-        <Route path="/production" element={<Production />} />
-        <Route path='/metabox/:id' element={<MetaBox />}/>
-        <Route path="/service" element={<Service />} />
+        <Route path='/workshop' element={<Workshop />}/> {/* Vue principale */}
+        <Route path='/contents' element={<Contents />}/> {/* Vue secondaire */}
+        <Route path='/calendar' element={<Calendar />}/> {/* Vue secondaire */}
+        <Route path='/signup' element={<Signup />}/> {/* Vue secondaire */}
+        <Route path="/production" element={<Production />} /> {/* Vue principale */}
+        <Route path='/metabox/:id' element={<MetaBox />}/> {/* Vue secondaire */}
+        <Route path="/service" element={<Service />} /> {/* Vue principale */}
         <Route path="/login" element={<Login />} />
         <Route path='/admin/:name' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path='/admin' element={<Middleware>{<Admin />}</Middleware>}/>
