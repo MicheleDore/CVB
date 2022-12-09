@@ -9,7 +9,7 @@ import BASE_URL from '../../config/api.js'
 import Login from '../Login.jsx'
 
 /*Ce composant affiche la vidéo séléctionnée par l'utilisateur et éxecute une routine
-qui permet à l'utilisateur de choisir un final, finalement, il enregistre ce choix en BDD*/
+qui permet à l'utilisateur de choisir un final, puis, il enregistre ce choix en BDD*/
 
 const MetaBox = ()=>{
     const[state,dispatch]= useContext(Context)

@@ -4,6 +4,9 @@ import bodyParser from 'body-parser'
 import {query, asyncQuery, pool} from '../config/database.js'
 const app = express();
 
+/*Ce controlleur demande toutes les informations liées à toutes les vidéo présentes en BDD et les lie aux
+éditions correspondantes, il envoye le résultat au composant concerné*/
+
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));

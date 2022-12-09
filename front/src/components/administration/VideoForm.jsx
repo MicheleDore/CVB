@@ -43,7 +43,7 @@ stocké dans le reducer par le composant ExtractEditions*/
     },[edition])
             
 /*La longueur des informations rélatives à la vidéo est vérifié par l'élément
-CheckLength pour être conforme à la BDD, si toutes le si informations sont 
+CheckLength pour être conforme à la BDD, si toutes les informations sont 
 validée elles sont stocké dans le réduceur*/
     const submit = (e)=>{
         e.preventDefault()

@@ -4,6 +4,9 @@ import bodyParser from 'body-parser'
 import {query, asyncQuery, pool} from '../config/database.js'
 const app = express();
 
+/*Ce controlleur demande tous les commentaires présents en BDD liés à la vidéo couramment experimenté par l'utilisateur, les lie aux
+auteurs respectifs et les ordonne du plus récent au plus ancien. Il envoye le résultat à l'utilisateur*/
+
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));

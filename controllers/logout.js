@@ -1,3 +1,5 @@
+/*Ce composant efface la session en cours et notifie*/
+
 const logout = (req, res, next)=>{
     console.log(res.locals.user)
     	console.log(res.locals.admin)

@@ -49,13 +49,15 @@ Dans les événements (expos, festivals, etc) où la cabine est déployé, l'ass
 PSEUDOCODE
 
 COTE FRONT
+0 - Mise en place du fichier index.js
+
 1 - Mise en place du composant App
      Composants importées : BrowserRouter,  Routes,  Route, Middleware, Videolist, Nav, les views mentionnées ci-dessus
      Mise en places des routes correspondantes aux views
-1.1-Mise en place du composent Reducer pour stocker les données nécessaire à la navigation et du Provider pour fournir le Context
+1.1-Mise en place du composant Reducer pour stocker les données nécessaire à la navigation et du Provider pour fournir le Context
 1.2-Mise en place de l'adresse API dans le dossier config
 
-2 - Mise ne place du composant NavBar
+2 - Mise ne place du composant NavBar qui permet aussi la vérification du token nécessaire au système de persistance
 
 3 - Mise en place du composant VideoList pour la récuperation des vidéos en BDD
 
@@ -66,7 +68,7 @@ COTE FRONT
 
 5 - Mise en place du composant MetaBox
 5.1 Mise en place du composant SelectChoice pour la récuperation des vidéos nécessaires à l'esperience qui se trouvent en BDD
-5.2 Mise en place du composant Comment qui affiche et permet de rentre des commentaires liées à la vidéo séléctionnée en MetBox
+5.2 Mise en place du composant Comment qui affiche et permet de rentrer des commentaires liées à la vidéo séléctionnée en MetBox
 
 6 - Mise en place du Middleware
 6.1-Mise en place du fichier config adminpath pour gérer les routes réservées
@@ -74,22 +76,35 @@ COTE FRONT
 7 - Mise en place de la vue Admin
 7.1 -Mise en place du composant VideoForm pour rentrer les informations rélative au chargement d'un ou plusieurs vidéos
 7.2 -Mise en place du composant VideoUpload pour le chargement des vidéos en BDD
-7.3 -Mise en place du composent ExtractEditions pour valider l'année correspondante aux vidéos chargées
+7.3 -Mise en place du composant ExtractEditions pour valider l'année correspondante aux vidéos chargées
+7.4 -Mise en place du composant VideoUpdate pour la mise à jour d'une vidéo déjà présente en BDD
 
 8 - Mise en place de la vue ERROR 404
     
 COTE BACK
 
-1 - Mise en place du server 'app.js' coté back
+0 - Mise en place du server 'app.js' coté back
 
-3 - Mise en place des routes suivantes dans les router coté back
-4 - Mise en place des routes suivantes dans les router coté front
-5 - Création du controlleur register coté back et de son composant coté front
-6 - Création du controlleur login coté back et de son composant coté front
-7 - Mise en place du Context React 
+1 - Mise en place du router back avec les routes correspondantes aux api
+1.1-Mise en place du fichier Database dans le dossier config pour la connexion à la BDD
 
-CHARGEMENT DES NOUVELLES VIDEOS PRINCIPALES
-4 - Dans la page Admin un lien permet de renvoyer au composant formulaire uploadvideo 
-2 - création du composant formulaire : ce composant permet à l'admin de rentrer toutes les informations textuelles liées à la video et de les stocker dans le reduceur. 
-3 - Au submit le composant renvoye au chargement des vidéo,  il y en a 4 qui sont envoyé dans la BDD table 'vidéo
-4 - Au chargement de la dernière vidéo les ids et texte respective sont rentré dans un seul objet dans la table 'interaction'
+2- Création du fichier token nécessaire au système de persistance
+2.1-Création du controller isLogged necessaire à la vérification du token
+
+3 - Mise en place du controller videolist pour la récuperation des informations liées aux vidéos présents en BDD
+
+4 - Mise en place du controller login pour vérifier l'identité et le mot de passe de l'utilisateur
+4.1-Mise en place du controller register pour l'instertion de nouveaux utilisateurs en BDD
+4.2-Mise en place du fichier checklength pour validation de la logueur maximale autorisée en BDD
+4.3-Mise en place du controller logout pour terminer la session
+
+5 - Mise en place du controlleur metaBox pour récuperer les informations nécessaire à l'interaction démandé par l'utilisateur
+5.1-Mise en place du controller metaVote pour garantire une interaction par utilisateur par production
+5.2 Mise en place des controlleurs metaDebate et metaComment pour le système de messagerie
+
+6 - Mise en place du fichier middleware pour la protection des routes admin et de la route utilisateur metavote
+
+7 - Mise en place du controller uploadVideo pour l'ajoute d'une vidéo de la part d'un administrateur
+7.1-Mise en place du controller checkExtentions pour valider l'extension des fichier chargés par l'admin
+7.2-Mise en place du controller updateVideo pour remplacer un fichier vidéo en BDD et les informations rélatives
+

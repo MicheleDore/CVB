@@ -8,6 +8,9 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
+/*Ce controlleur interroge la BDD pour vérifier que l'utilisateur n'a pas déjà fait une interaction avec la vidéo séléctionnée,
+puis, si ce n'est pas le cas il enregistre le vote en BDD et notifie l'utilisateur*/
+
 const metaVote = (req, res)=>{
     const checkUser = ` SELECT id FROM votes WHERE user_id= ? AND choice_id = ?`
         pool.query(checkUser, [req.body.userId, req.body.choiceId],(err, user, fields)=>{

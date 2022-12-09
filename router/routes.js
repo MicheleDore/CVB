@@ -13,16 +13,16 @@ import metaDebate from '../controllers/metaDebate.js'
 
 const router = express.Router()
 
-router.get("/api", videoList)
+router.get("/api", videoList)/*ce controlleur interroge la BDD à propos des vidéo qu'y sont stockées*/
 router.post("/api/register", register)
 router.post("/api/login", login)
-router.post("/api/isLogged", isLogged)
-router.get("/api/logout", logout)
-router.post("/api/admin", uploadVideo)
-router.post("/api/admin/update", updateVideo)
-router.get("/api/metabox/:movie", metaBox)
-router.post("/api/debate", metaDebate)
-router.post("/api/comment", metaComment)
-router.post("/api/metavote", metaVote)
+router.post("/api/isLogged", isLogged)/*ce controlleur vérifie le token dans le back pour prolonger la session utilisateur*/
+router.get("/api/logout", logout)/*ce controlleur efface la session à la réquéte axios correspondante*/
+router.post("/api/admin", uploadVideo)/*ce controlleur permet de insérer une vidéo en BDD*/
+router.post("/api/admin/update", updateVideo)/*ce controlleur permet de remplacer un vidéo en BDD*/
+router.get("/api/metabox/:movie", metaBox)/*ce controlleur interroge la BDD à propos des informations nécessaires à l'XU*/
+router.post("/api/debate", metaDebate)/*ce controlleur interroge la BDD à propos des commentaires liées à l'interaction en cours*/
+router.post("/api/comment", metaComment)/*ce controlleur enregistre en BDD le commentaire laissé par l'utilisateur*/
+router.post("/api/metavote", metaVote)/*ce controlleur enregistre en BDD la valeur (1 ou 2) de l'interaction effectuée par l'utilisateur*/
 
 export default router 

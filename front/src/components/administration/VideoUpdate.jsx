@@ -4,6 +4,9 @@ import CheckLength from '../LengthChecker'
 import BASE_URL from '../../config/api.js'
 import { Context } from "../Reducer.jsx";
 
+/*Ce composant est conçu principalement pour permettre le remplacement d'un fichier vidéo qui se trouve 
+dans le server. Il est pourtant possible de l'utiliser pour corriger les informations textuelles rélatives.*/
+
 const VideoUpdate= (props)=>{
     const [notif, setNotif] = useState('')
     const [title, setTitle] = useState(props.oldVideo.title)
@@ -15,7 +18,9 @@ const VideoUpdate= (props)=>{
         title,
         desc
     }
-            
+    /*La longueur des informations rélatives à la vidéo est vérifié par l'élément
+    CheckLength pour être conforme à la BDD, si toutes les informations sont 
+    la réquete est envoyée*/        
     const submit = (e)=>{
         e.preventDefault()
         let correctLength = CheckLength(entries, 255)

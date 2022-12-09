@@ -9,7 +9,7 @@ export let pool  = mysql.createPool({
     database: "micheledore_cvb",
 });
 
-// pour creer des requet sql async
+// pour creer des requetes sql async
 export const query = util.promisify(pool.query).bind(pool)
 
 // permet d'obtenir le resultat des requete sql async

@@ -4,7 +4,8 @@ import {verifyToken} from './token.js'
 const ADMIN = 'admin'
 const USER = 'user'
 
-//route api/metavote juste pour les utilisateurs
+/*le middleware protège les routes admin et la route metavote,
+pour réserver l'interaction aux utilisateur connectés*/
 
 const protectedPath = (pathname) => {
     const adminPath = ['admin'];
@@ -38,6 +39,8 @@ const accesAutorized = (pathname,userData) => {
     }
 }
 
+/*Le token provenant du front est utilisé pour vérifier l'état de la connection */
+
 const middleware = async (req, res, next) => {
     let pathname = parseurl(req).pathname.split('/')[2];
     const token = req.headers['authorization'] ? req.headers['authorization'].split(' ')[1] : null
@@ -45,7 +48,7 @@ const middleware = async (req, res, next) => {
     if(accesAutorized(pathname,userData)){
         next()
     } else {
-        res.json({response:false, msg:'acces refuser'})
+        res.json({response:false, msg:'access denied'})
     }
 }
 
