@@ -146,6 +146,7 @@ const MetaBox = ()=>{
                     <Login />
                 </div>
             }
+            {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
             {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
         </Fragment>
     )

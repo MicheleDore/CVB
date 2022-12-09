@@ -13,9 +13,9 @@ const Comment = (props)=>{
     let userId = props.user
     
      useEffect((props) => {
-        axios.post(`${BASE_URL}/debate`, {choiceId})
+        axios.get(`${BASE_URL}/debate/${choiceId}`)
             .then((res)=>{
-                setCommentList(res.data)
+                res.data && setCommentList(res.data)
             })
             .catch((error)=>{
                 console.log(error)
@@ -42,7 +42,7 @@ const Comment = (props)=>{
     return (
         <Fragment>
             <form onSubmit={submit}>
-                <label>Hi N.{userId}. Please do leave us your thoughts:
+                <label>Hi {props.userName}. Please do leave us your thoughts:
                     <input name='comment' type='textarea' maxLength='566' value={comment} onChange={(e) => setComment(e.target.value)} required/>
                 </label>
                 <input type='submit' name='submit'/>

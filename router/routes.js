@@ -21,7 +21,7 @@ router.get("/api/logout", logout)/*ce controlleur efface la session à la réqu�
 router.post("/api/admin", uploadVideo)/*ce controlleur permet de insérer une vidéo en BDD*/
 router.post("/api/admin/update", updateVideo)/*ce controlleur permet de remplacer un vidéo en BDD*/
 router.get("/api/metabox/:movie", metaBox)/*ce controlleur interroge la BDD à propos des informations nécessaires à l'XU*/
-router.post("/api/debate", metaDebate)/*ce controlleur interroge la BDD à propos des commentaires liées à l'interaction en cours*/
+router.get("/api/debate/:choice", metaDebate)/*ce controlleur interroge la BDD à propos des commentaires liées à l'interaction en cours*/
 router.post("/api/comment", metaComment)/*ce controlleur enregistre en BDD le commentaire laissé par l'utilisateur*/
 router.post("/api/metavote", metaVote)/*ce controlleur enregistre en BDD la valeur (1 ou 2) de l'interaction effectuée par l'utilisateur*/
 

@@ -150,13 +150,11 @@ const NavBar = (props) => {
         {(state.bottomNav || location.pathname!=='/') && <div className='smallpadding navBar relative bottomNav normalBlue mainColor'>
             <ul className='aroundFlex generalList'>
               <li>
-                <p>H&4589dhs</p>
-              </li>
-              <li>
                 <NavLink to="/">
                   HOME 
                 </NavLink>
               </li> {/*Le information de connection sont récuperée dans le Reducer*/}
+              <li><p>Welcome {state.name}! </p></li>
               {!state.connected &&
               <Fragment>
                 <li>
@@ -173,7 +171,7 @@ const NavBar = (props) => {
                       LOGOUT
                     </NavLink>
                   </li>
-                  <p>Welcome N. {state.userId}! </p>
+                  
                   {state.admin && 
                     <li>
                       <NavLink to="/admin">

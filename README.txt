@@ -67,7 +67,7 @@ COTE FRONT
 4.2 - Mise en place du composant Logout pour terminer la session
 
 5 - Mise en place du composant MetaBox
-5.1 Mise en place du composant SelectChoice pour la récuperation des vidéos nécessaires à l'esperience qui se trouvent en BDD
+5.1 Mise en place du composant SelectChoice pour la récuperation des vidéos nécessaires à l'experience qui se trouvent en BDD
 5.2 Mise en place du composant Comment qui affiche et permet de rentrer des commentaires liées à la vidéo séléctionnée en MetBox
 
 6 - Mise en place du Middleware
@@ -108,3 +108,4 @@ COTE BACK
 7.1-Mise en place du controller checkExtentions pour valider l'extension des fichier chargés par l'admin
 7.2-Mise en place du controller updateVideo pour remplacer un fichier vidéo en BDD et les informations rélatives
 
+H&4589dhs

@@ -20,12 +20,6 @@ const SelectChoice = (props)=>{
             console.log(error)
         })
     }, [props.movie, dispatch]);
-    /*ce return est-il nécessaire ?*/
-    return (
-        <Fragment>
-
-        </Fragment>
-    )
 }
 
 export default SelectChoice
