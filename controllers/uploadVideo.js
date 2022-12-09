@@ -11,6 +11,7 @@ const uploadVideo = (req, res) => {
     const form = formidable({keepExtensions: true});
     const newEdition = `INSERT INTO editions (year) VALUES (?)`
     form.parse(req, (err, fields, upload) => {
+        console.log(fields)
         if (err) throw err
         let newFilename = upload.video.newFilename
         let newUrl  = `http://micheledore.sites.3wa.io:9300/videos/${newFilename}`
@@ -23,6 +24,7 @@ const uploadVideo = (req, res) => {
                 nouvelle en base des données, puis appelle la function pour le chargement de la vidéo en BDD*/
                 if(!fields.editionId) { 
                     pool.query(newEdition, fields.edition, (err, edition, fields)=>{
+                        console.log(fields)
                         if (err) throw err
                         params.push(edition.insertId)
                         addVideo(params, upload, newFilename, fields)

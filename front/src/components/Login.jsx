@@ -10,6 +10,7 @@ const Login= ()=>{
     const [password, setPassword] = useState('')
     const [state,dispatch]= useContext(Context)
     const [register, setRegister] = useState(false)
+        const [notif, setNotif] = useState('')
     
     /* Cette function passe dans le reduceur les informations liées à l'utilisateur
     provénantes de la BDD et génère le token nécessaire pour la persistance de sa session*/
@@ -28,7 +29,7 @@ const Login= ()=>{
             } else {
                 /*si l'utilisateur n'est pas présent en BDD ou le mot de pass est mauvais,
                 l'utilisateur reçoit un message*/
-                console.log('please check your email or password')
+                setNotif('please check your email or password')
             }
         })
         .catch((err)=>{
@@ -43,7 +44,7 @@ const Login= ()=>{
     
     return (
         <Fragment>
-        {/*Ce composant est un modale ce qui permet à l'uilisateur de ce connecter sans sortir de sa navigation*/}
+        {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
         <Modal show={register} onHide={showRegister}>
             <Modal.Header >
               <Modal.Title>Registration</Modal.Title>
@@ -55,6 +56,7 @@ const Login= ()=>{
                 <button onClick={()=>{showRegister()}}>Close</button>
             </Modal.Footer>
           </Modal>
+          <p>{notif}</p>
             {!register && <Fragment>
                 <form onSubmit={submit}>
                     <label>Mail:

@@ -45,6 +45,9 @@ const VideoUpload= (props)=>{
             setType('Ending_B')
             setEntry('Ending B Video')
         }
+        if(videoCount===4){
+            props.metaboxVideo(false)
+        }
     },[videoCount])
 
     const submit = (e)=>{
@@ -70,7 +73,6 @@ const VideoUpload= (props)=>{
             .catch((err) => {
                 console.log(err)
             })
-         
         setVideoCount(videoCount+1)
     }
     

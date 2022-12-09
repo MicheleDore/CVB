@@ -35,7 +35,7 @@ const register = (req,res)=>{
                                 BDD avec la date courante*/
                                 pool.query(newUser, params, (err, user, fields)=>{
                                     if (err) throw err
-                                    let message = 'Thank you for joining us ! Your password has been stocked in clear !'
+                                    let message = 'Thank you for joining us ! '
                                     res.json(message)
                                 })
                             })

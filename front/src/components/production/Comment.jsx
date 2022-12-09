@@ -39,6 +39,7 @@ const Comment = (props)=>{
             console.log(err)
         })
     }
+    
     return (
         <Fragment>
             <form onSubmit={submit}>

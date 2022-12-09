@@ -19,31 +19,42 @@ const Admin= ()=>{
     const [showUpdate, setShowUpdate] = useState(false)
     const [oldVideo, setOldVideo] = useState(false)
     
-    const hideButtons = ()=>{
-        setUploadBoxVideo(false)
-        setUploadVideo(false)
-        setVideoList(false)
+    const toggleButtons = ()=>{
+        uploadBoxVideo? setUploadBoxVideo(false) : setUploadBoxVideo(true)
+        uploadVideo? setUploadVideo(false) : setUploadVideo(true)
+        videoList? setVideoList(false) : setVideoList(true)
+        console.log(' uploadBoxVideo : '+ uploadBoxVideo + ' uploadVideo : '+  uploadVideo + ' videoList '+ videoList)
     }
     
     const metaboxVideoForm = ()=>{
         setBoxVideo(true) 
         setShowForm(true)
-        hideButtons()
+        toggleButtons()
     }
     
     const videoForm = ()=>{
         setShowForm(true)
-        hideButtons()
+        toggleButtons()
     }
     
     const updateVideo =(selectedVideo)=>{
         setOldVideo(selectedVideo)
         setShowUpdate(true)
-        hideButtons()
+        toggleButtons()
+    }
+    
+    const reset =()=>{
+        setShowForm(false)
+        setBoxVideo(false)
+        setShowUpdate(false)
+        toggleButtons()
+        dispatch({type:'cancelNewVideo'})
+        console.log(state.newVideo)
     }
     
     return (
         <Fragment>
+        {console.log(' uploadBoxVideo : '+ uploadBoxVideo + ' uploadVideo : '+  uploadVideo + ' videoList '+ videoList)}
             <ExtractEditions /> {/*ce composant est appellé pour s'assurer que l'administrateur ne rentre pas une année invalide, 
             les éditions existantes sont chargées dans le reducer*/}
             {/*Les vidéos déjà présentes en BDD sont affichées et peuvent être mises à jour mais pas supprimées*/}
@@ -65,8 +76,9 @@ const Admin= ()=>{
             {uploadVideo && <button onClick={videoForm}> Upload Video </button>}
             {uploadBoxVideo && <button onClick={metaboxVideoForm}> Upload MetaBox Video </button>}
             {showForm && <VideoForm metaboxVideo={boxVideo} formState={showForm} toggleForm={setShowForm} />}
-            {state.newVideo && <VideoUpload metaboxVideo={boxVideo} />}
+            {state.newVideo && <VideoUpload metaboxVideo={boxVideo} toggleForm={setShowForm}/>}
             {showUpdate && <VideoUpdate oldVideo={oldVideo} />}
+            {!videoList && <button onClick={reset}>Back to previous page</button>}
         </Fragment>
         )
 }

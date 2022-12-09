@@ -28,6 +28,8 @@ const reducer = (state, action)=>{
             return {...state, newVideo:{...state.newVideo, choice_A:action.payload}}
         case 'newVideo':
             return {...state, newVideo:action.payload}
+        case 'cancelNewVideo':
+            return {...state, newVideo: false}
         case 'editions':
             return {...state, editions:action.payload}
         case 'videopick':

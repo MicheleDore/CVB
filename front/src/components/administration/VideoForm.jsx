@@ -14,7 +14,6 @@ const VideoForm= (props)=>{
     const [state, dispatch] = useContext(Context)
     const [edition, setEdition] = useState('')
     const [editionId, setEditionId] = useState('')
-    const [mainVODTitle, setMainVODTitle] = useState([]) /*Un State Inutile ??*/
     let entries = {
         title,
         edition,

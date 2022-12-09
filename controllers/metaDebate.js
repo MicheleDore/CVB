@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
 const metaDebate = (req, res)=>{
-    const getComments = ` SELECT comments.content, DATE_FORMAT(publication_time, "%d/%m/%Y     %H:%i:%s") AS publication_time, users.nickname FROM comments JOIN users ON comments.user_id=users.id WHERE choice_id = ? ORDER BY publication_time DESC`
+    const getComments = ` SELECT comments.content, DATE_FORMAT(publication_time, "%d/%m/%Y     %H:%i:%s") AS publication_time, users.nickname FROM comments JOIN users ON comments.user_id=users.id WHERE choice_id = ? ORDER BY comments.id DESC`
         let choiceId = parseInt(req.params.choice)
         pool.query(getComments, [choiceId],(err, comments, fields)=>{
             if (err) throw err
