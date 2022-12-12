@@ -1,5 +1,6 @@
 import '../../App.css'
-import {useState, useEffect, Fragment} from 'react'
+import {useState, useEffect, useContext, Fragment} from 'react'
+import { Context } from "../Reducer.jsx";
 import BASE_URL from '../../config/api.js'
 import axios from 'axios'
 
@@ -7,6 +8,7 @@ import axios from 'axios'
 et permet à l'utilisateur de commenter à son tour*/
 
 const Comment = (props)=>{
+    const [state, dispatch] = useContext(Context)
     const [comment, setComment]= useState('')
     const [commentList, setCommentList]= useState([])
     let choiceId = props.choice
@@ -20,7 +22,7 @@ const Comment = (props)=>{
             .catch((error)=>{
                 console.log(error)
             })
-    }, [comment, choiceId]);
+    },);
     
     const submit = (e)=>{
         e.preventDefault()
@@ -30,7 +32,6 @@ const Comment = (props)=>{
             userId
         })
         .then((res)=>{
-            console.log(res.data)
             if(res.data.response){
                 setComment('')
             }
@@ -39,6 +40,19 @@ const Comment = (props)=>{
             console.log(err)
         })
     }
+    
+    const deleteComment = (commentId)=>{
+        axios.post(`${BASE_URL}/delete/${commentId}`)
+            .then((res)=>{
+                if(res.data.response){
+                    setCommentList([...commentList])
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+    };
+
     
     return (
         <Fragment>
@@ -51,10 +65,13 @@ const Comment = (props)=>{
             <ul>
                 {commentList.map((item, i)=>{
                     return <li key={i} >
-                                <span>
-                                    <p> {item.nickname} </p>
-                                    <p> {item.publication_time} </p>
-                                </span>
+                                <div>
+                                    <span>
+                                        <p> {item.nickname} </p>
+                                        <p> {item.publication_time} </p>
+                                         {state.admin && <button onClick={(e)=>{deleteComment(item.id)}}> Delete Comment </button>}
+                                    </span>
+                                </div>
                                 <div>
                                     <p>{item.content}</p>
                                 </div>

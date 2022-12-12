@@ -14,6 +14,8 @@ qui permet à l'utilisateur de choisir un final, puis, il enregistre ce choix en
 const MetaBox = ()=>{
     const[state,dispatch]= useContext(Context)
     const [url, setUrl] = useState('')
+    const [topNavBar, setTopNavBar] = useState(state.topNav)
+    const [quest, setQuest] = useState('')
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const videoId = useParams()
@@ -23,6 +25,8 @@ const MetaBox = ()=>{
     const [vote, setVote] = useState('')
     const [comment, setComment] = useState(false)
     let userId = state.userId
+    
+    
     
     /* Au changement d'une vidéo, dans ce composant ou dans le state,
     l'affichage est mis à jour*/
@@ -40,6 +44,26 @@ const MetaBox = ()=>{
         }
     },[videoId, state.videos[0]])
     
+    useEffect(() => {
+        dispatch({type: 'offTopNav'})
+        dispatch({type:'offBottomNav'})
+        console.log(state.topNav)
+    }, []);
+    
+    const handleScroll = event => {
+      if (window.scrollY=== 0){
+            dispatch({type:'offTopNav'})
+            dispatch({type:'offBottomNav'})
+        } else {
+            dispatch({type:'onBottomNav'})
+            dispatch({type:'onTopNav'})
+        }
+    }
+    
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+    }, [window.scrollY]);
+    
     /*Quand la vidéo séléctionnée se termine, une deuxième vidéo est apellée
     et mise en loop. Les boutons permettant de faire le choix s'affichent.*/
     
@@ -48,7 +72,7 @@ const MetaBox = ()=>{
             state.videos[0] && state.videos[0].map((item,i) => {
                 if(item.id === state.choice.loop_id){
                     setUrl(item.url)
-                    setDesc(state.choice.dilemma)
+                    setQuest(state.choice.dilemma)
                 }
             })
             currentVideo.setAttribute('loop','true')
@@ -129,25 +153,30 @@ const MetaBox = ()=>{
     return (
         <Fragment> 
             {/*ce composant permet de récuperer en BDD des autres vidéos potentiellement nécessaires à l'UX*/}
-            <SelectChoice movie ={videoId.id} />
-            <video id='theatre' src={url} width="480" height="320" preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
-            <h1>{title}</h1>
-            <h2>{desc}</h2> 
-            {/*L'utilisateur qui n'est pas connecté peut regarder la vidéo mais n'aura pas accés au choix tant qu'il reste deconnecté*/}
-            <h3>{(choice && state.connected && !comment) && 
-                <span>
-                    <button onClick={makeChoiceA}>{state.choice.choice_A}</button>
-                    <button onClick={makeChoiceB}>{state.choice.choice_B}</button>
-                </span>}
-            </h3> 
-            {/*Le modal du Login permet à l'utilisateur de se connecter (et enregistrer) sans quitter la vue MetaBox*/}
-            {(choice && !state.connected) && <div>
-                    <h2>Pour pouvoir choisir connecte-toi...</h2>
-                    <Login />
+            <section className='metaBox'>
+                <SelectChoice movie ={videoId.id} />
+                <video id='theatre' className="metaBoxVideo" src={url} preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
+                <div className='container'>
+                    <h5>{quest}</h5>
+                    {/*L'utilisateur qui n'est pas connecté peut regarder la vidéo mais n'aura pas accés au choix tant qu'il reste deconnecté*/}
+                    <h3>{(choice && state.connected && !comment) && 
+                        <span>
+                            <button onClick={makeChoiceA}>{state.choice.choice_A}</button>
+                            <button onClick={makeChoiceB}>{state.choice.choice_B}</button>
+                        </span>}
+                    </h3> 
+                    {/*Le modal du Login permet à l'utilisateur de se connecter (et enregistrer) sans quitter la vue MetaBox*/}
+                    {(choice && !state.connected) && <div className='smallMargin smallpadding'>
+                                                        <h6>Pour pouvoir choisir connecte-toi...</h6>
+                                                        <Login />
+                                                    </div>
+                    }
+                    <h1>{title}</h1>
+                    <h6>{desc}</h6> 
                 </div>
-            }
-            {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
-            {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
+                {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
+                {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
+            </section>
         </Fragment>
     )
 }

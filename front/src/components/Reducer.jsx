@@ -6,14 +6,18 @@ const initialState = {
     connected: false,
     admin : false,
     videos:[],
-    bottomNav: false,
-    topNav:false
+    bottomNav: true,
+    topNav:true
 }
 
 const reducer = (state, action)=>{
     switch(action.type){
         case 'toggleTopNav':
             return {...state, topNav: !state.topNav}
+        case 'offTopNav':
+            return {...state, topNav: false}
+        case 'onTopNav':
+            return {...state, topNav: true}
         case 'offBottomNav':
             return {...state, bottomNav: false}
         case 'onBottomNav':

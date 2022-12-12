@@ -56,6 +56,7 @@ const NavBar = (props) => {
 /*Système de persistance de session avec token*/
 
     useEffect(() => {
+      
       const token = localStorage.getItem("jwtToken")
       if(!state.login && token){
         axios.post(`${BASE_URL}/isLogged`,{token})
@@ -74,9 +75,10 @@ const NavBar = (props) => {
   return (
     <Fragment >
       <nav>
+      {console.log(location.pathname)}
       {/*Les affichages conditionnels et la gestion des classes sont gerées par le composant Home à travers le state 
       pour offrir une XU plus dynamique au chargement de la HOMEPAGE*/}
-        <div className={`${!state.topNav && location.pathname=== '/'? "hidden" : "reset"} smallpadding aroundFlex navBar relative`}>
+        <div className={`${!state.topNav && (location.pathname=== '/' || location.pathname === '/metabox') ? "hidden" : "reset"} smallpadding aroundFlex navBar relative`}>
           <ul className={`${location.pathname === '/'? "column absolute navButtons" : "topNav"} generalList aroundFlex smallpadding navBar ${!state.topNav && location.pathname=== '/'? "hideButtons" : "animWelcome"}`}>
             <li>
               <NavLink to="/workshop" onClick={showWorkshop}>
@@ -148,41 +150,43 @@ const NavBar = (props) => {
           </ul>
         }
         {(state.bottomNav || location.pathname!=='/') && <div className='smallpadding navBar relative bottomNav normalBlue mainColor'>
-            <ul className='aroundFlex generalList'>
-              <li>
-                <NavLink to="/">
-                  HOME 
-                </NavLink>
-              </li> {/*Le information de connection sont récuperée dans le Reducer*/}
-              <li><p>Welcome {state.name}! </p></li>
-              {!state.connected &&
-              <Fragment>
-                <li>
-                  <NavLink to="/login">
-                    LOGIN
-                  </NavLink>
-                </li>
-              </Fragment>
-              }
-              {state.connected && 
-                <Fragment>
-                  <li>
-                    <NavLink to="/logout">
-                      LOGOUT
-                    </NavLink>
-                  </li>
-                  
-                  {state.admin && 
-                    <li>
-                      <NavLink to="/admin">
-                        ADMIN
-                      </NavLink>
-                    </li>
-                  }
-                </Fragment>
-              }
-            </ul>
-          </div>
+                                                          <ul className='aroundFlex generalList'>
+                                                            <li>
+                                                              <NavLink to="/">
+                                                                HOME 
+                                                              </NavLink>
+                                                            </li> {/*Le information de connection sont récuperée dans le Reducer*/}
+                                                            {!state.connected &&
+                                                            <Fragment>
+                                                              <li>
+                                                                <NavLink to="/login">
+                                                                  LOGIN
+                                                                </NavLink>
+                                                              </li>
+                                                            </Fragment>
+                                                            }
+                                                            {state.connected && 
+                                                              <Fragment>
+                                                                <li>
+                                                                  <p>Welcome {state.name}! </p>
+                                                                </li>
+                                                                <li>
+                                                                  <NavLink to="/logout">
+                                                                    LOGOUT
+                                                                  </NavLink>
+                                                                </li>
+                                                                
+                                                                {state.admin && 
+                                                                  <li>
+                                                                    <NavLink to="/admin">
+                                                                      ADMIN
+                                                                    </NavLink>
+                                                                  </li>
+                                                                }
+                                                              </Fragment>
+                                                            }
+                                                          </ul>
+                                                        </div>
         }
         </nav>
     </Fragment>

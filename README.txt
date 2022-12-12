@@ -69,6 +69,7 @@ COTE FRONT
 5 - Mise en place du composant MetaBox
 5.1 Mise en place du composant SelectChoice pour la récuperation des vidéos nécessaires à l'experience qui se trouvent en BDD
 5.2 Mise en place du composant Comment qui affiche et permet de rentrer des commentaires liées à la vidéo séléctionnée en MetBox
+5.3 Mise en place de la requete post qui permet d'effacer des comments uniquement pour les administrateurs
 
 6 - Mise en place du Middleware
 6.1-Mise en place du fichier config adminpath pour gérer les routes réservées
@@ -101,6 +102,7 @@ COTE BACK
 5 - Mise en place du controlleur metaBox pour récuperer les informations nécessaire à l'interaction démandé par l'utilisateur
 5.1-Mise en place du controller metaVote pour garantire une interaction par utilisateur par production
 5.2 Mise en place des controlleurs metaDebate et metaComment pour le système de messagerie
+5.3 Mise en place de la route post qui permet d'effacer des comments uniquement pour les administrateurs
 
 6 - Mise en place du fichier middleware pour la protection des routes admin et de la route utilisateur metavote
 

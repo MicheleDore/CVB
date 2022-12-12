@@ -45,9 +45,6 @@ const VideoUpload= (props)=>{
             setType('Ending_B')
             setEntry('Ending B Video')
         }
-        if(videoCount===4){
-            props.metaboxVideo(false)
-        }
     },[videoCount])
 
     const submit = (e)=>{
@@ -73,6 +70,7 @@ const VideoUpload= (props)=>{
             .catch((err) => {
                 console.log(err)
             })
+         
         setVideoCount(videoCount+1)
     }
     
@@ -87,15 +85,16 @@ const VideoUpload= (props)=>{
     
     return (
         <Fragment>
-            {(videoCount === 1 && !props.metaboxVideo) ? <p>{notif}</p> :
             <form onSubmit={submit} encType='multipart/form-data'>
+                <p>{notif}</p>
                 <label name='upload'>{entry} :
                     <input name='video' type='file' />
                 </label>
                 {videoCount === 2 && <Choice choice='A' choiceState={choiceValue} setChoice={middleState} />}
                 {videoCount === 3 && <Choice choice='B' choiceState={choiceValue} setChoice={middleState} />}
+                {videoCount === 4 && <p>'Mission accomplished !'</p>}
                 <input type='submit' name='submit'/>
-            </form>}
+            </form>
             
         </Fragment>
         )

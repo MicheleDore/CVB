@@ -15,8 +15,8 @@ const Home = ()=>{
     une XU plus immersive avec une vidéo de présentation au teaser*/
     
     useEffect(() => {
-        setTopNavBar(false)
-        dispatch({type: 'toggleTopNav', payload: topNavBar})
+        dispatch({type: 'offTopNav'})
+        dispatch({type:'offBottomNav'})
     }, []);
     
     /*La barre apparaît à l'appui d'un bouton par l'utilisateur,...*/
@@ -24,7 +24,6 @@ const Home = ()=>{
     
     const toggleTopNavBar = ()=>{
         dispatch({type: 'toggleTopNav'})
-        console.log(state.topNav)
     }
     
     /*...ou au scroll vers le bas...*/
@@ -46,7 +45,7 @@ const Home = ()=>{
     return (
         <Fragment>
             <div className='relative'>
-                <video id='homeVideo' src='http://micheledore.sites.3wa.io:9001/video/Les_ateliers_des_confluences_de_Community_VideoBox.mp4' width="480" height="320" preload="auto" autoPlay loop muted > Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.
+                <video id='homeVideo' src='http://micheledore.sites.3wa.io:9001/video/Les_ateliers_des_confluences_de_Community_VideoBox.mp4' preload="auto" autoPlay loop muted > Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.
                 </video>
                 <div className='aroundFlex welcome'>
                     <div className='topNavButton betweenFlex animWelcome column' onClick={toggleTopNavBar}>

@@ -51,9 +51,7 @@ validée elles sont stocké dans le réduceur*/
             setNotif('Fields maximum length is 255 digits')
         } else if (state.editions[2].includes(parseInt(edition))){
             props.toggleForm(false)
-            console.log(entries)
             dispatch({type:'newVideo', payload: entries})
-            console.log(state)
         } else {
             setNotif('Please select a suitable edition')
         }

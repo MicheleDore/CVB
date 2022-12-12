@@ -25,7 +25,7 @@ const Login= ()=>{
                 localStorage.setItem('jwtToken', res.data.token)
                 axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
                 dispatch({type:'login', payload: res.data})
-                console.log(res.data)
+                setNotif('Welcome '+state.name+' !')
             } else {
                 /*si l'utilisateur n'est pas présent en BDD ou le mot de pass est mauvais,
                 l'utilisateur reçoit un message*/

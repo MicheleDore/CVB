@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
 const videoList = (req, res)=>{
-    let videoRequest = ` SELECT videos.*, editions.year FROM videos JOIN editions ON edition_id =editions.id`
+    let videoRequest = ` SELECT videos.*, editions.year FROM videos JOIN editions ON edition_id =editions.id ORDER BY id DESC`
         pool.query(videoRequest,(err, videos, fields)=>{
             if (err) throw err
             res.json({response:true, videos})
