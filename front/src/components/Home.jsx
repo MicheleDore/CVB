@@ -29,10 +29,13 @@ const Home = ()=>{
     /*...ou au scroll vers le bas...*/
     
     const handleScroll = event => {
-          if (window.scrollY=== 0){
-            dispatch({type:'offBottomNav'})
+        if (window.scrollY=== 0){
+                dispatch({type:'offBottomNav'})
         } else {
             dispatch({type:'onBottomNav'})
+        }
+        if (window.scrollY > window.innerHeight/2) {
+            dispatch({type:'offTopNav'})
         }
     }
     

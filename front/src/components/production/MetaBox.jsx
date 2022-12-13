@@ -156,7 +156,7 @@ const MetaBox = ()=>{
             <section className='metaBox'>
                 <SelectChoice movie ={videoId.id} />
                 <video id='theatre' className="metaBoxVideo" src={url} preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
-                <div className='container'>
+                <div className='container' >
                     <h5>{quest}</h5>
                     {/*L'utilisateur qui n'est pas connecté peut regarder la vidéo mais n'aura pas accés au choix tant qu'il reste deconnecté*/}
                     <h3>{(choice && state.connected && !comment) && 
@@ -172,7 +172,7 @@ const MetaBox = ()=>{
                                                     </div>
                     }
                     <h1>{title}</h1>
-                    <h6>{desc}</h6> 
+                    <h6 className="textAlignStart">{desc}</h6> 
                 </div>
                 {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
                 {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}

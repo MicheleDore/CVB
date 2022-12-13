@@ -12,6 +12,7 @@ const NavBar = (props) => {
   const [menus, setMenus] = useState({workshop: false, prods: false, services:false})
   
   const location = useLocation()
+  let locationCheck = location.pathname.split('/')
   
   /*Les functions suivantes utilisent le state MENUS pour gérer l'affichage conditionnel des menus déroulants*/
   const showWorkshop = ()=>{
@@ -75,81 +76,80 @@ const NavBar = (props) => {
   return (
     <Fragment >
       <nav>
-      {console.log(location.pathname)}
       {/*Les affichages conditionnels et la gestion des classes sont gerées par le composant Home à travers le state 
       pour offrir une XU plus dynamique au chargement de la HOMEPAGE*/}
-        <div className={`${!state.topNav && (location.pathname=== '/' || location.pathname === '/metabox') ? "hidden" : "reset"} smallpadding aroundFlex navBar relative`}>
-          <ul className={`${location.pathname === '/'? "column absolute navButtons" : "topNav"} generalList aroundFlex smallpadding navBar ${!state.topNav && location.pathname=== '/'? "hideButtons" : "animWelcome"}`}>
+        <div className={`${!state.topNav && (location.pathname=== '/' || locationCheck[1] === 'metabox') ? "hidden" : "fixed"} aroundFlex navBar `}>
+          <ul className={`${location.pathname === '/'? "column absolute navButtons" : "topNav relative"} generalList aroundFlex smallpadding navBar ${!state.topNav && location.pathname=== '/'? "hideButtons" : "animWelcome"}`}>
             <li>
               <NavLink to="/workshop" onClick={showWorkshop}>
                 L'ATELIER
               </NavLink>
+              {menus.workshop && <ul className="generalList mainColor smallMenu absolute" >
+                                    <li>
+                                      <NavLink to="/contents">
+                                        Contenus 
+                                      </NavLink>
+                                    </li>
+                                    <li>
+                                      <NavLink to="/calendar">
+                                        Calendrier
+                                      </NavLink>
+                                    </li>
+                                    <li>
+                                      <NavLink to="/signup">
+                                         S'inscrire 
+                                      </NavLink>
+                                    </li>
+                                  </ul>
+              }
             </li>
             <li>
               <NavLink to="/production" onClick={showProds}>
                 NOS REALS
               </NavLink>
+              {menus.prods && <ul className="generalList mainColor smallMenu absolute"> {/*Mappe les productions principales stockées dans le reducer*/}
+                    {
+                    state.videos[0] && state.videos[0].map((item,i) => {
+                        if(item.type=== 'Main_Video'){
+                          let url = "metabox/"+item.id 
+                          return <NavLink  key={i} to={url}>
+                                    <li key={i} className='betweenFlex'>
+                                      <p> {item.title} </p>
+                                      <p> {item.year} </p>
+                                    </li>
+                                  </NavLink>
+                        } {/*Chaque lien appel le composant MetaBox qui affiche avec sa routine la vidéo sélectionnée*/}
+                      })
+                    }
+                </ul>
+              }
             </li>
             <li>
               <NavLink to="/service" onClick={showServices}>
                 NOS PRESTAS
               </NavLink>
+              {menus.services && <ul className="generalList mainColor smallMenu absolute">
+                                    <li>
+                                      <NavLink to="/boxlease">
+                                         La Box
+                                      </NavLink>
+                                    </li>
+                                    <li>
+                                      <NavLink to="/youth">
+                                        Pour les plus jeunes
+                                      </NavLink>
+                                    </li>
+                                    <li>
+                                      <NavLink to="/dlpali">
+                                         De la page à l'image
+                                      </NavLink>
+                                    </li>
+                                  </ul>
+                                }
             </li>
           </ul>
         </div>
-        {menus.workshop && <ul className="generalList mainColor smallMenu" >
-            <li>
-              <NavLink to="/contents">
-                Contenus 
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/calendar">
-                Calendrier
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup">
-                 S'inscrire 
-              </NavLink>
-            </li>
-          </ul>
-        }
-        {menus.prods && <ul className="generalList mainColor smallMenu"> {/*Mappe les productions principales stockées dans le reducer*/}
-              {
-              state.videos[0] && state.videos[0].map((item,i) => {
-                  if(item.type=== 'Main_Video'){
-                    let url = "metabox/"+item.id 
-                    return <NavLink  key={i} to={url}>
-                              <li key={i} className='betweenFlex'>
-                                <p> {item.title} </p>
-                                <p> {item.year} </p>
-                              </li>
-                            </NavLink>
-                  } {/*Chaque lien appel le composant MetaBox qui affiche avec sa routine la vidéo sélectionnée*/}
-                })
-              }
-          </ul>
-        }
-        {menus.services && <ul className="generalList mainColor smallMenu">
-            <li>
-              <NavLink to="/boxlease">
-                 La Box
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/youth">
-                Pour les plus jeunes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dlpali">
-                 De la page à l'image
-              </NavLink>
-            </li>
-          </ul>
-        }
-        {(state.bottomNav || location.pathname!=='/') && <div className='smallpadding navBar relative bottomNav normalBlue mainColor'>
+        {(state.bottomNav || (location.pathname!=='/' && locationCheck[1] !== 'metabox')) && <div className='smallpadding navBar fixed bottomNav mainColor'>
                                                           <ul className='aroundFlex generalList'>
                                                             <li>
                                                               <NavLink to="/">

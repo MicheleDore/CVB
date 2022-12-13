@@ -43,9 +43,28 @@ body{
   font-size: 62.5%;
   background-color: var(--light-grey);
   text-decoration: none;
-  font-family: 'Poppins', sens-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: var(--text-wght);
 }
+
+/*************************
+          POSITIONS
+**************************/
+.absolute{
+  position: absolute;
+}
+
+.relative{
+  position: relative;
+}
+
+.fixed{
+  position: fixed;
+}
+
+/*************************
+          CONTAINERS
+**************************/
 
 .smallpadding{
   padding: 0.5rem;
@@ -55,17 +74,17 @@ body{
   margin: 0.5rem;
 }
 
-.reset{
-  margin: 0;
-  padding: 0;
-}
-
 .container{
   margin: auto;
+  padding: 3rem;
   width: 90%;
   text-align: center;
   border-bottom: var(--black) solid 1px;
 }
+
+/*************************
+          DISPLAY
+**************************/
 
 .aroundFlex{
   display:flex;
@@ -83,6 +102,18 @@ body{
   display: none;
 }
 
+.column{
+  flex-direction: column;
+}
+
+.textAlignStart{
+  text-align: start
+}
+
+/*************************
+          ELEMENTS
+**************************/
+
 .generalList{
   list-style: none;
   text-decoration: none;
@@ -99,14 +130,6 @@ a:hover{
   color: var(--light-beautiful-blue);
 }
 
-.absolute{
-  position: absolute;
-}
-
-.relative{
-  position: relative;
-}
-
 .mainColor{
   background-color: var(--beautiful-blue);
   color: var(--light-beautiful-blue);
@@ -120,12 +143,13 @@ p{
   margin: 0;
 }
 
-.column{
-  flex-direction: column;
-}
 
-.textAlignStart{
-  text-align: start
+/*************************
+          TITLES
+**************************/
+
+h1{
+  font-family: 'Montserrat', serif;
 }
 
 /*************************
@@ -194,7 +218,6 @@ p{
 .bottomNav{
   bottom:0;
   left:0;
-  position: fixed;
 }
 
 .smallMenu{
@@ -305,4 +328,10 @@ p{
 .metaBox{
   color: var(--grey);
   background-color: black;
+  
+}
+
+.metaBox > .container >* {
+  border: 1px solid var(--light-grey);
+  padding: 0.5rem;
 }
