@@ -44,32 +44,32 @@ const Login= ()=>{
     
     return (
         <Fragment>
-        {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
-        <Modal show={register} onHide={showRegister}>
-            <Modal.Header >
-              <Modal.Title>Registration</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Register/>
-            </Modal.Body>
-            <Modal.Footer>
-                <button onClick={()=>{showRegister()}}>Close</button>
-            </Modal.Footer>
-          </Modal>
-          <p>{notif}</p>
-            {!register && <Fragment>
-                <form onSubmit={submit}>
-                    <label>Mail:
-                        <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
-                    </label>
-                    <label>Password:
-                        <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
-                    </label>
-                    <input type='submit' value='Login'/>
-                </form>
-                <p>Not registered ? </p> 
-                <button onClick={()=>{showRegister()}}>Click here</button>
-            </Fragment>
+            {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
+            <Modal className='container' show={register} onHide={showRegister}>
+                <Modal.Header >
+                  <Modal.Title>Registration</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Register/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={()=>{showRegister()}}>Close</button>
+                </Modal.Footer>
+              </Modal>
+              <p>{notif}</p>
+                {!register && <Fragment>
+                    <form onSubmit={submit}>
+                        <label>Mail:
+                            <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
+                        </label>
+                        <label>Password:
+                            <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
+                        </label>
+                        <input type='submit' value='Login'/>
+                    </form>
+                    <p>Not registered ? </p> 
+                    <button onClick={()=>{showRegister()}}>Click here</button>
+                </Fragment>
             }
         </Fragment>
         )

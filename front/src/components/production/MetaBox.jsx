@@ -15,7 +15,7 @@ const MetaBox = ()=>{
     const[state,dispatch]= useContext(Context)
     const [url, setUrl] = useState('')
     const [topNavBar, setTopNavBar] = useState(state.topNav)
-    const [quest, setQuest] = useState('')
+    const [quest, setQuest] = useState('Bienvenue dans la Box')
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const videoId = useParams()
@@ -26,7 +26,16 @@ const MetaBox = ()=>{
     const [comment, setComment] = useState(false)
     let userId = state.userId
     
+    const handleOrientation =()=>{
+        if (window.matchMedia("(orientation: portrait)").matches) {
+          setQuest('Tourne ton portable horizontalement')
+        } else {
+            setQuest('')
+        }
+        console.log('ciao')
+    }
     
+    window.addEventListener("deviceorientation", handleOrientation, true)
     
     /* Au changement d'une vidéo, dans ce composant ou dans le state,
     l'affichage est mis à jour*/
@@ -47,7 +56,6 @@ const MetaBox = ()=>{
     useEffect(() => {
         dispatch({type: 'offTopNav'})
         dispatch({type:'offBottomNav'})
-        console.log(state.topNav)
     }, []);
     
     const handleScroll = event => {

@@ -152,8 +152,10 @@ const NavBar = (props) => {
         {(state.bottomNav || (location.pathname!=='/' && locationCheck[1] !== 'metabox')) && <div className='smallpadding navBar fixed bottomNav mainColor'>
                                                           <ul className='aroundFlex generalList'>
                                                             <li>
-                                                              <NavLink to="/">
-                                                                HOME 
+                                                              <NavLink to="/" onClick={() => {
+                                                                                        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                                                                                      }}>
+                                                                <img src='http://micheledore.sites.3wa.io:9001/logo-site.png' alt='Community VideoBox Logo'/> 
                                                               </NavLink>
                                                             </li> {/*Le information de connection sont récuperée dans le Reducer*/}
                                                             {!state.connected &&

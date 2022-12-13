@@ -1,6 +1,6 @@
 import '../App.css'
 import React from 'react'
-const Workshop = ()=>{
+const Footer = ()=>{
     return (
         <React.Fragment>
             <section id ="contacts" className="container">
@@ -10,4 +10,4 @@ const Workshop = ()=>{
     )
 }
 
-export default Workshop
+export default Footer
