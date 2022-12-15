@@ -170,9 +170,6 @@ const NavBar = (props) => {
                                                             {state.connected && 
                                                               <Fragment>
                                                                 <li>
-                                                                  <p>Welcome {state.name}! </p>
-                                                                </li>
-                                                                <li>
                                                                   <NavLink to="/logout">
                                                                     LOGOUT
                                                                   </NavLink>

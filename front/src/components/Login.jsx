@@ -10,7 +10,8 @@ const Login= ()=>{
     const [password, setPassword] = useState('')
     const [state,dispatch]= useContext(Context)
     const [register, setRegister] = useState(false)
-        const [notif, setNotif] = useState('')
+    const [notif, setNotif] = useState('')
+    const [warning, setWarning] = useState('')
     
     /* Cette function passe dans le reduceur les informations liées à l'utilisateur
     provénantes de la BDD et génère le token nécessaire pour la persistance de sa session*/
@@ -22,14 +23,16 @@ const Login= ()=>{
         })
         .then((res)=>{
             if(res.data.response){
+                console.log(res.data)
                 localStorage.setItem('jwtToken', res.data.token)
                 axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
                 dispatch({type:'login', payload: res.data})
-                setNotif('Welcome '+state.name+' !')
+                setNotif('Welcome '+res.data.name+' !')
+                setWarning('')
             } else {
                 /*si l'utilisateur n'est pas présent en BDD ou le mot de pass est mauvais,
                 l'utilisateur reçoit un message*/
-                setNotif('please check your email or password')
+                setWarning('Please check your email or password')
             }
         })
         .catch((err)=>{
@@ -38,8 +41,7 @@ const Login= ()=>{
     };
     
         const showRegister = ()=>{
-        !register && setRegister(true)
-        register && setRegister(false)
+        !register ? setRegister(true) : setRegister(false)
     }
     
     return (
@@ -57,22 +59,25 @@ const Login= ()=>{
                 </Modal.Footer>
               </Modal>
               <p>{notif}</p>
-                {!register && <Fragment>
-                <div className='container relative bigPadding'>
-                    <div className='bigPadding form'>
-                        <form className='aroundFlex column bigPadding' onSubmit={submit}>
-
-                                <label htmlFor='email'>Mail:</label>
-                                <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
-                                <label htmlFor='password'>Password:</label>
-                                <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
-                                <input className='smallMargin' type='submit' value='Login' />
-                        </form>
-                        <p>Not registered ? </p> 
-                        <button onClick={()=>{showRegister()}}>Click here</button>
-                    </div>
+                <Fragment>
+                <div className='container relative bigPadding form'>
+                    <h1>{notif}</h1>
+                    {!state.connected && <div>
+                                            <form className='aroundFlex column bigPadding' onSubmit={submit}>
+                                                    <p>{warning}</p>
+                                                    <label htmlFor='email'>Mail:</label>
+                                                    <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
+                                                    <label htmlFor='password'>Password:</label>
+                                                    <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
+                                                    <input className='smallMargin' type='submit' value='Login' />
+                                            </form>
+                                            <p>Not registered ? </p> 
+                                            <button onClick={()=>{showRegister()}}>Click here</button>
+                                        </div>
+                    }
                 </div>
                 </Fragment>
+                }
             }
         </Fragment>
         )

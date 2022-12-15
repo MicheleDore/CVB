@@ -181,9 +181,9 @@ const MetaBox = ()=>{
                     }
                     <h1>{title}</h1>
                     <h6 className="textAlignStart">{desc}</h6> 
+                    {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
+                    {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
                 </div>
-                {/*Les commentaires s'affichent uniquement si l'utilisateur a effectué l'interaction*/}
-                {(state.userChoices && state.choice && comment) && <Comment choice ={state.choice.id} user={userId} userName={state.name}/>}
             </section>
         </Fragment>
     )
