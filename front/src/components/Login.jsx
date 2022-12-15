@@ -45,12 +45,12 @@ const Login= ()=>{
     return (
         <Fragment>
             {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
-            <Modal className='container' show={register} onHide={showRegister}>
+            <Modal show={register} onHide={showRegister}>
                 <Modal.Header >
                   <Modal.Title>Registration</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <Register/>
+                <Modal.Body className=' form'>
+                    <Register />
                 </Modal.Body>
                 <Modal.Footer>
                     <button onClick={()=>{showRegister()}}>Close</button>
@@ -58,17 +58,20 @@ const Login= ()=>{
               </Modal>
               <p>{notif}</p>
                 {!register && <Fragment>
-                    <form onSubmit={submit}>
-                        <label>Mail:
-                            <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
-                        </label>
-                        <label>Password:
-                            <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
-                        </label>
-                        <input type='submit' value='Login'/>
-                    </form>
-                    <p>Not registered ? </p> 
-                    <button onClick={()=>{showRegister()}}>Click here</button>
+                <div className='container relative bigPadding'>
+                    <div className='bigPadding form'>
+                        <form className='aroundFlex column bigPadding' onSubmit={submit}>
+
+                                <label htmlFor='email'>Mail:</label>
+                                <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
+                                <label htmlFor='password'>Password:</label>
+                                <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
+                                <input className='smallMargin' type='submit' value='Login' />
+                        </form>
+                        <p>Not registered ? </p> 
+                        <button onClick={()=>{showRegister()}}>Click here</button>
+                    </div>
+                </div>
                 </Fragment>
             }
         </Fragment>

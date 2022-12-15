@@ -47,7 +47,7 @@ const Register= ()=>{
     };
     return (
         <Fragment>
-            <form onSubmit={submit}>
+            <form className='aroundFlex column' onSubmit={submit}>
                 <label>Pseudo:
                     <input name='nickname' type='text' maxLength='36' value={nickname} onChange={(e) => setNickname(e.target.value)} required/>
                 </label>

@@ -62,12 +62,20 @@ body{
   position: fixed;
 }
 
+.maxWidth{
+  width:100%;
+}
+
 /*************************
           CONTAINERS
 **************************/
 
 .smallpadding{
   padding: 0.5rem;
+}
+
+.bigPadding{
+  padding: 2rem;
 }
 
 .smallMargin{
@@ -142,6 +150,17 @@ p{
   margin: 0;
 }
 
+/*************************
+          FORM
+**************************/
+
+.form{
+  background-color: var(--white);
+  border: 1px solid var(--blue-green-blue);
+  border-radius: 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
 
 /*************************
           TITLES

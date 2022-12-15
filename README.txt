@@ -84,7 +84,7 @@ COTE FRONT
     
 COTE BACK
 
-0 - Mise en place du server 'app.js' coté back
+0 - Mise en place du server 'app.js' coté back et de la BDD
 
 1 - Mise en place du router back avec les routes correspondantes aux api
 1.1-Mise en place du fichier Database dans le dossier config pour la connexion à la BDD
