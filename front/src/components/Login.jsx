@@ -23,7 +23,6 @@ const Login= ()=>{
         })
         .then((res)=>{
             if(res.data.response){
-                console.log(res.data)
                 localStorage.setItem('jwtToken', res.data.token)
                 axios.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
                 dispatch({type:'login', payload: res.data})
@@ -46,39 +45,38 @@ const Login= ()=>{
     
     return (
         <Fragment>
-            {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
-            <Modal show={register} onHide={showRegister}>
-                <Modal.Header >
-                  <Modal.Title>Registration</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className=' form'>
-                    <Register />
-                </Modal.Body>
-                <Modal.Footer>
-                    <button onClick={()=>{showRegister()}}>Close</button>
-                </Modal.Footer>
-              </Modal>
-              <p>{notif}</p>
-                <Fragment>
-                <div className='container relative bigPadding form'>
-                    <h1>{notif}</h1>
-                    {!state.connected && <div>
-                                            <form className='aroundFlex column bigPadding' onSubmit={submit}>
-                                                    <p>{warning}</p>
-                                                    <label htmlFor='email'>Mail:</label>
-                                                    <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
-                                                    <label htmlFor='password'>Password:</label>
-                                                    <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
-                                                    <input className='smallMargin' type='submit' value='Login' />
-                                            </form>
-                                            <p>Not registered ? </p> 
-                                            <button onClick={()=>{showRegister()}}>Click here</button>
-                                        </div>
-                    }
+            <div className='container bigPadding'>
+                {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
+                <Modal show={register} onHide={showRegister}>
+                    <Modal.Header >
+                      <Modal.Title>Registration</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className=' form'>
+                        <Register />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className='button' onClick={()=>{showRegister()}}>Close</button>
+                    </Modal.Footer>
+                  </Modal>
+                    <Fragment>
+                        <div className=' relative bigPadding form'>
+                            <h1>{notif}</h1>
+                            {!state.connected && <div>
+                                                    <form className='aroundFlex column smallPadding' onSubmit={submit}>
+                                                            <p>{warning}</p>
+                                                            <label htmlFor='email'>Mail:</label>
+                                                            <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='mail' required/>
+                                                            <label htmlFor='password'>Password:</label>
+                                                            <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password'required/>
+                                                            <input className='smallMargin button mainColor' type='submit' value='Login' />
+                                                    </form>
+                                                    <p>Not registered ? </p> 
+                                                    <button className='button' onClick={()=>{showRegister()}}>Click here</button>
+                                                </div>
+                            }
+                        </div>
+                    </Fragment>
                 </div>
-                </Fragment>
-                }
-            }
         </Fragment>
         )
 }

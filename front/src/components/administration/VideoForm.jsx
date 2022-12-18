@@ -59,38 +59,34 @@ validée elles sont stocké dans le réduceur*/
 
     return (
         <Fragment>
-            <form onSubmit={submit}>
-                <label>Title:
-                    <input name='title' type='text' maxLength='255' value={title} onChange={(e) => setTitle(e.target.value)} list="titles" required/>
-                        <datalist id='titles'>
-                             {state.videos[0] && state.videos[0].map((item,i) => {
-                                    if(item.type=== 'Main_video'){
-                                        return <option key={i} value={item.title}/>
-                                    }
-                                })
-                             }
-                        </datalist>
-                </label>
-                <label>Edition:
-                    <select name='edition' value={edition} onChange={(e) =>  setEdition(e.target.value)} list="editions" maxLength='4' >
-                             <option></option>
-                             {edition ? <option >{edition}</option> : state.editions[2].map((item,i) => {
-                                return <option key={i}>{item}</option>
-                             })}
-                    </select>
-                </label>
-                {props.metaboxVideo && 
-                <label>Dilemma:
-                    <input name='dilemma' value={dilemma} onChange={(e) => setDilemma(e.target.value)} type='text' maxLength='255'/>
-                </label>}
-                <label>Description:
-                    <input name='desc' value={desc} onChange={(e) => setDesc(e.target.value)} type='text' maxLength='255'/>
-                </label>
-                <hr></hr>
+            <form className="betweenFlex column" onSubmit={submit}>
+                <label htmlFor="title">Title:</label>
+                <input name='title' type='text' maxLength='255' value={title} onChange={(e) => setTitle(e.target.value)} list="titles" required/>
+                    <datalist id='titles'>
+                         {state.videos[0] && state.videos[0].map((item,i) => {
+                                if(item.type=== 'Main_video'){
+                                    return <option key={i} value={item.title}/>
+                                }
+                            })
+                         }
+                    </datalist>
+                <label htmlFor="edition">Edition:</label>
+                <select name='edition' value={edition} onChange={(e) =>  setEdition(e.target.value)} list="editions" maxLength='4' >
+                         <option></option>
+                         {edition ? <option >{edition}</option> : state.editions[2].map((item,i) => {
+                            return <option key={i}>{item}</option>
+                         })}
+                </select>
+                {props.metaboxVideo && <div>
+                                        <label className="betweenFlex column" htmlFor="dilemma">Dilemma:</label>
+                                        <textarea className="textArea" name='dilemma' value={dilemma} onChange={(e) => setDilemma(e.target.value)} type='text' maxLength='255'></textarea>
+                                       </div>
+                }
+                <label htmlFor="desc">Description:</label>
+                <textarea className="textArea maxWidth" name='desc' value={desc} onChange={(e) => setDesc(e.target.value)} type='text' maxLength='255'></textarea>
                 <p>{notif}</p>
-                <input type='submit' name='submit'/>
+                <input className='button specialButton smallMargin' type='submit' name='submit' value="Avancer"/>
             </form>
-
         </Fragment>
         )
 }

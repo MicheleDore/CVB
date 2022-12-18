@@ -43,29 +43,38 @@ const Admin= ()=>{
     
     return (
         <Fragment>
-            <ExtractEditions /> {/*ce composant est appellé pour s'assurer que l'administrateur ne rentre pas une année invalide, 
-            les éditions existantes sont chargées dans le reducer*/}
-            {/*Les boutons s'affichent en fonction des interactions de l'admin*/}
-            {uploadVideo && <button onClick={videoForm}> Upload Video </button>}
-            {uploadBoxVideo && <button onClick={metaboxVideoForm}> Upload MetaBox Video </button>}
-            {showForm && <VideoForm metaboxVideo={boxVideo} formState={showForm} toggleForm={setShowForm} />}
-            {state.newVideo && <VideoUpload metaboxVideo={boxVideo} toggleForm={setShowForm}/>}
-            {showUpdate && <VideoUpdate oldVideo={oldVideo} />}
-             {/*Les vidéos déjà présentes en BDD sont affichées et peuvent être mises à jour mais pas supprimées*/}
-            <ul>
-            {
-                state.videos[0] && state.videos[0].map((item,i) => {
-                  return <li key={i} >
-                              <span> {item.title}</span>
-                              <span> {item.year} </span>
-                              <span> {item.type} </span>
-                              <span>
-                                <button onClick={(e)=>{updateVideo(item)}}> Update Video </button>
-                              </span>
-                          </li>
-                })
-            }
-          </ul>
+            <div className="container bigPadding">
+                <div className="form smallpadding adminForm">
+                    <h1>Vidéos</h1>
+                    <ExtractEditions /> {/*ce composant est appellé pour s'assurer que l'administrateur ne rentre pas une année invalide, 
+                    les éditions existantes sont chargées dans le reducer*/}
+                    {/*Les boutons s'affichent en fonction des interactions de l'admin*/}
+                    <div className="betweenFlex smallpadding">
+                        {uploadVideo && <button className='smallMargin button specialButton' onClick={videoForm}> Upload Video </button>}
+                        {uploadBoxVideo && <button className='smallMargin button specialButton mainColor smallpadding' onClick={metaboxVideoForm}> Upload MetaBox Video </button>}
+                    </div>
+                    {showForm && <VideoForm metaboxVideo={boxVideo} formState={showForm} toggleForm={setShowForm} />}
+                    {state.newVideo && <VideoUpload metaboxVideo={boxVideo} toggleForm={setShowForm}/>}
+                    {showUpdate && <VideoUpdate oldVideo={oldVideo} />}
+                     {/*Les vidéos déjà présentes en BDD sont affichées et peuvent être mises à jour mais pas supprimées*/}
+                    <ul className="generalList">
+                    {
+                        state.videos[0] && state.videos[0].map((item,i) => {
+                          return <li className="betweenFlex smallpadding" key={i} >
+                                    <span>
+                                      <span> {item.title}</span>
+                                      <span> {item.year} </span>
+                                      <span> {item.type} </span>
+                                     </span>
+                                      <span>
+                                        <button className='smallMargin button' onClick={(e)=>{updateVideo(item)}}> Update </button>
+                                      </span>
+                                  </li>
+                        })
+                    }
+                    </ul>
+                </div>
+            </div>
         </Fragment>
         )
 }

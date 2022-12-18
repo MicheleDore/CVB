@@ -69,7 +69,7 @@ const Comment = (props)=>{
         axios.post(`${BASE_URL}/update/${commentToUpdate}`, {newComment})
             .then((res)=>{
                 if(res.data.response){
-                    setCommentToUpdate('')
+                    setCommentToUpdate(false)
                 }
             })
             .catch((error)=>{
@@ -80,31 +80,35 @@ const Comment = (props)=>{
     return (
         <Fragment>
             <form onSubmit={uploadComment}>
-            <p>Hi {props.userName}. Please do leave us your thoughts:</p>
-                <label>
-                    <input name='comment' type='textarea' maxLength='566' value={comment} onChange={(e) => setComment(e.target.value)} required/>
-                </label>
-                <input type='submit' name='submit'/>
+            <h6>Hi {props.userName}. Please do leave us your thoughts:</h6>
+                <div className="aroundFlex column adminForm">
+                    <label className=" maxWidth">
+                        <textarea className="textArea maxWidth" name='comment' type='textarea' maxLength='566' value={comment} onChange={(e) => setComment(e.target.value)} required></textarea>
+                    </label>
+                    <input type='submit' name='submit'/>
+                </div>
             </form>
-            <ul className="generalList">
+            <ul className="generalList aroundFlex column commentList">
                 {commentList.map((item, i)=>{
-                    return <li key={i} >
-                                <div>
-                                    <span>
+                    return <li key={i} className="maxWidth smallpadding">
+                                <div className="comment">
+                                    <div className='betweenFlex mainColor smallpadding commentHeader'>
                                         <p> {item.nickname} </p>
                                         <p> {item.publication_time} </p>
-                                        <div>
-                                            {item.id===commentToUpdate ? <form onSubmit={updateComment}>
-                                                                        <label>
-                                                                            <input name='comment' type='textarea' maxLength='566' value={newComment} onChange={(e) => setNewComment(e.target.value)} required/>
+                                    </div>
+                                    <div className='commentBody'>
+                                        {item.id===commentToUpdate ? <form className="aroundFlex column" onSubmit={updateComment}>
+                                                                        <label className=" maxWidth ">
+                                                                            <textarea name='comment' className="textArea maxWidth" type='textarea' maxLength='566' value={newComment} onChange={(e) => setNewComment(e.target.value)} required></textarea>
                                                                         </label>
-                                                                        <input type='submit' name='submit'/>
-                                                                    </form> : <p>{item.content}</p> 
-                                            }
-                                        </div>
-                                         {(state.admin || props.userName===item.nickname && !commentToUpdate) && <button onClick={(e)=>{deleteComment(item.id)}}> Delete Comment </button>}
+                                                                        <input className='smallMargin button' type='submit' name='submit'/>
+                                                                    </form> : <p className='textAlignStart smallpadding'>{item.content}</p> 
+                                        }
+                                    </div>
+                                    <div className='aroundFlex smallpadding mainColor commentFooter '>
+                                         {((state.admin || props.userName===item.nickname) && !commentToUpdate) && <button onClick={(e)=>{deleteComment(item.id)}}> Delete Comment </button>}
                                          {(props.userName===item.nickname && !commentToUpdate) && <button onClick={(e)=>{showUpdateComment(item.id, item.content)}}> Update Comment </button>}
-                                    </span>
+                                    </div>
                                 </div>
                             </li>
                 })}

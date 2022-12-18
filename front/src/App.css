@@ -86,7 +86,14 @@ body{
   margin: auto;
   width: 90%;
   text-align: center;
-  border-bottom: var(--black) solid 1px;
+}
+
+.mainView{
+  padding-top: 8rem;
+}
+
+.secondaryView{
+  padding-top: 2rem;
 }
 
 /*************************
@@ -137,6 +144,19 @@ a:hover{
   color: var(--light-beautiful-blue);
 }
 
+.button{
+  background-color: var(--blue-green-blue);
+  color:var(--white);
+  border: 1px solid var(--normal-blue);
+  border-radius: 10rem;
+}
+
+.specialButton{
+  background-color: var(--normal-blue);
+  font-size: 1rem;
+  height: 5rem;
+}
+
 .mainColor{
   background-color: var(--beautiful-blue);
   color: var(--light-beautiful-blue);
@@ -151,7 +171,7 @@ p{
 }
 
 /*************************
-          FORM
+          FORMS
 **************************/
 
 .form{
@@ -167,6 +187,15 @@ form > label{
   color: var(--black);
 }
 
+.textArea{
+  height: 5rem;
+}
+
+.adminForm{
+  font-size: 0.8rem;
+  color: var(--normal-blue);
+}
+  
 /*************************
           TITLES
 **************************/
@@ -177,15 +206,13 @@ h1{
   color: var(--normal-blue);
 }
 
-/*************************
-          NAVBAR
-**************************/
-
-.topNavButton{
-  top: 10rem;
-  z-index: 0;
-  object-fit: contain;
+h2{
+  font-family: 'Montserrat', serif;
+  font-weight: 900;
 }
+/*************************
+          HEADER
+**************************/
 
 .topArrow{
   width: 2rem;
@@ -208,6 +235,16 @@ h1{
   z-index: 1;
   align-items: flex-start;
   padding: 2rem;
+}
+
+/*************************
+          NAVBAR
+**************************/
+
+.topNavButton{
+  top: 10rem;
+  z-index: 0;
+  object-fit: contain;
 }
 
 .navBar{
@@ -233,6 +270,10 @@ h1{
 .navButtons li{
   margin: 1.5rem;
 }
+
+.bottomNav li{
+  padding: 0.5rem;
+}
 .navButtons a{
   color: var(--white);
   background-color: var(--beautiful-blue);
@@ -249,11 +290,20 @@ h1{
   top:100%;
   left:0;
   width: 100%;
-  padding: 0.5rem;
 }
 
 .smallMenu p{
   margin: 0.5rem;
+}
+
+/*************************
+          LOGO
+**************************/
+
+.logo{
+  object-fit: contain;
+  height: auto;
+  width: 33%;
 }
 
 /*************************
@@ -310,6 +360,40 @@ h1{
       display: none;
     }
 }
+
+/*************************
+         FOOTER
+**************************/
+
+.footer{
+  background-color: var(--normal-blue);
+  border-top: 1px solid black;
+  color: var(--white);
+  bottom: 0;
+  font-size: 1rem;
+  padding-bottom: 4rem;
+}
+
+.svg{
+  width: 3rem;
+  height: 3rem;
+}
+/*************************
+        ARTICLES
+**************************/
+
+.article{
+  border: 2px solid var(--beautiful-blue);
+}
+
+.image{
+  object-fit: contain;
+}
+
+.scroll{
+  overflow: scroll;
+}
+
 /*************************
         HOMEVIDEO
 **************************/
@@ -326,9 +410,7 @@ h1{
   z-index: -1;
 }
 
-.scroll{
-  overflow: scroll;
-}
+
 
 /*************************
       SHOWREEL
@@ -359,4 +441,64 @@ h1{
 .metaBox > .container >* {
   border: 1px solid var(--light-grey);
   padding: 0.2rem;
+}
+
+.commentList{
+  font-size: 0.8rem;
+  color: var(--black);
+  background-color: var(--grey);
+}
+
+.comment{
+  border-radius: 1rem;
+}
+.comment > div{
+  border: 1px solid var(--black);
+}
+
+.commentHeader{
+  border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.commentBody{
+  background-color: var(--white);
+}
+.commentFooter{
+  border-radius: 0rem 0rem 1rem 1rem;
+}
+
+/*************************
+    DESKTOP RESPONSIVE
+**************************/
+
+@media screen and (min-width: 768px){
+  body{
+    font-size: 0.7rem;
+  }
+    
+  .responsiveContainer{
+    display: flex;
+    flex-direction:row;
+  }
+    .responsiveElement{
+    width: 50%;
+  }
+
+  .responsiveImage{
+    object-fit: cover;
+  }
+  
+  .responsiveService{
+    width: 33%;
+  }
+  
+  .horizontalFooter{
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 990){
+
+  
 }

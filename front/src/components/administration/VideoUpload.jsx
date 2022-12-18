@@ -88,14 +88,13 @@ const VideoUpload= (props)=>{
             <form onSubmit={submit} encType='multipart/form-data'>
                 <p>{notif}</p>
                 <label name='upload'>{entry} :
-                    <input name='video' type='file' />
+                    <input className='button' name='video' type='file' />
                 </label>
                 {videoCount === 2 && <Choice choice='A' choiceState={choiceValue} setChoice={middleState} />}
                 {videoCount === 3 && <Choice choice='B' choiceState={choiceValue} setChoice={middleState} />}
                 {videoCount === 4 && <p>'Mission accomplished !'</p>}
-                <input type='submit' name='submit'/>
+                <input className='button specialButton smallMargin' type='submit' name='submit'/>
             </form>
-            
         </Fragment>
         )
 }

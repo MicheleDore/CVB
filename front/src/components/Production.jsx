@@ -2,12 +2,12 @@ import '../App.css'
 import { Context } from "./Reducer.jsx";
 import { useContext, Fragment} from 'react'
 
-const Production = ()=>{
+const Production = (props)=>{
     const[state, dispatch]= useContext(Context)
     
     return (
         <Fragment>
-            <section id ="production" className="container">
+            <section id ="production" className={`${!props.home ? "mainView" : "bigPadding"} container`}>
                 <h1>NOS REALISATIONS</h1>
                     <div className='aroundFlex column'>
                         {

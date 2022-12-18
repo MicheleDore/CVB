@@ -1,15 +1,15 @@
 import '../App.css'
 import {Fragment, useContext, useEffect, useState} from 'react'
-import Workshop from './Workshop'
+import Workshop from './workshop/Workshop'
 import Production from './Production'
-import Service from './Service'
+import Service from './service/Service'
 import {Context} from './Reducer.jsx'
 import flecheBlue from "../graphisme/flèche-blue.png"
 import flecheViolet from "../graphisme/flèche-violet.png"
 
 const Home = ()=>{
     const [state, dispatch] = useContext(Context)
-    const [topNavBar, setTopNavBar] = useState(state.topNav)
+    const [home, setHome] = useState(true)
     
     /* La Barre de Navigation est minimisé au chargement pour garantier 
     une XU plus immersive avec une vidéo de présentation au teaser*/
@@ -47,7 +47,7 @@ const Home = ()=>{
   
     return (
         <Fragment>
-            <div className='relative'>
+            <header className='relative'>
                 <video id='homeVideo' src='http://micheledore.sites.3wa.io:9001/video/Les_ateliers_des_confluences_de_Community_VideoBox.mp4' preload="auto" autoPlay loop muted > Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.
                 </video>
                 <div className='aroundFlex welcome'>
@@ -56,13 +56,12 @@ const Home = ()=>{
                         <img className='bottomArrow' alt='Discover us' src={flecheBlue}/>
                     </div>
                 </div>
+            </header>
+            <div>
+                <Workshop home={home}/>
+                <Production home={home}/>
+                <Service home={home}/>
             </div>
-            <section className="container">
-            </section>
-            <Workshop />
-            <Production />
-            <Service />
-
         </Fragment>
     )
 }

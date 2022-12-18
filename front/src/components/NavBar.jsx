@@ -4,7 +4,6 @@ import {useContext, Fragment, useEffect, useState, } from "react"
 import { Context } from "./Reducer.jsx";
 import axios from 'axios'
 import BASE_URL from '../config/api.js';
-import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom"
 
 const NavBar = (props) => {
@@ -57,7 +56,6 @@ const NavBar = (props) => {
 /*Système de persistance de session avec token*/
 
     useEffect(() => {
-      
       const token = localStorage.getItem("jwtToken")
       if(!state.login && token){
         axios.post(`${BASE_URL}/isLogged`,{token})
@@ -108,20 +106,20 @@ const NavBar = (props) => {
                 NOS REALS
               </NavLink>
               {menus.prods && <ul className="generalList mainColor smallMenu absolute"> {/*Mappe les productions principales stockées dans le reducer*/}
-                    {
-                    state.videos[0] && state.videos[0].map((item,i) => {
-                        if(item.type=== 'Main_Video'){
-                          let url = "metabox/"+item.id 
-                          return <NavLink  key={i} to={url}>
-                                    <li key={i} className='betweenFlex'>
-                                      <p> {item.title} </p>
-                                      <p> {item.year} </p>
-                                    </li>
-                                  </NavLink>
-                        } {/*Chaque lien appel le composant MetaBox qui affiche avec sa routine la vidéo sélectionnée*/}
-                      })
-                    }
-                </ul>
+                                  {
+                                  state.videos[0] && state.videos[0].map((item,i) => {
+                                      if(item.type=== 'Main_Video'){
+                                        let url = "metabox/"+item.id 
+                                        return <NavLink  key={i} to={url}>
+                                                  <li key={i} className='betweenFlex'>
+                                                    <p> {item.title} </p>
+                                                    <p> {item.year} </p>
+                                                  </li>
+                                                </NavLink>
+                                      } {/*Chaque lien appel le composant MetaBox qui affiche avec sa routine la vidéo sélectionnée*/}
+                                    })
+                                  }
+                              </ul>
               }
             </li>
             <li>
@@ -135,13 +133,13 @@ const NavBar = (props) => {
                                       </NavLink>
                                     </li>
                                     <li>
-                                      <NavLink to="/youth">
-                                        Pour les plus jeunes
+                                      <NavLink to="/dlpali">
+                                         De la page à l'image
                                       </NavLink>
                                     </li>
                                     <li>
-                                      <NavLink to="/dlpali">
-                                         De la page à l'image
+                                      <NavLink to="/youth">
+                                        Pour les plus jeunes
                                       </NavLink>
                                     </li>
                                   </ul>
@@ -149,43 +147,48 @@ const NavBar = (props) => {
             </li>
           </ul>
         </div>
-        {(state.bottomNav || (location.pathname!=='/' && locationCheck[1] !== 'metabox')) && <div className='smallpadding navBar fixed bottomNav mainColor'>
-                                                          <ul className='aroundFlex generalList'>
-                                                            <li>
-                                                              <NavLink to="/" onClick={() => {
-                                                                                        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-                                                                                      }}>
-                                                                <img src='http://micheledore.sites.3wa.io:9001/logo-cvb-pour-favicon.ico' alt='Community VideoBox Logo'/> 
-                                                              </NavLink>
-                                                            </li> {/*Le information de connection sont récuperée dans le Reducer*/}
-                                                            {!state.connected &&
-                                                            <Fragment>
-                                                              <li>
-                                                                <NavLink to="/login">
-                                                                  LOGIN
-                                                                </NavLink>
-                                                              </li>
-                                                            </Fragment>
-                                                            }
-                                                            {state.connected && 
-                                                              <Fragment>
-                                                                <li>
-                                                                  <NavLink to="/logout">
-                                                                    LOGOUT
-                                                                  </NavLink>
-                                                                </li>
-                                                                
-                                                                {state.admin && 
-                                                                  <li>
-                                                                    <NavLink to="/admin">
-                                                                      ADMIN
-                                                                    </NavLink>
-                                                                  </li>
-                                                                }
-                                                              </Fragment>
-                                                            }
-                                                          </ul>
-                                                        </div>
+        {(state.bottomNav || (location.pathname!=='/' && locationCheck[1] !== 'metabox')) && <div className='navBar fixed bottomNav mainColor'>
+                                  <ul className='aroundFlex generalList'>
+                                    {!state.admin &&
+                                      <li onClick={() => {window.scrollTo({top: document.body.scrollHeight, left: 0, behavior: 'smooth'});}}>
+                                        CONTACTS
+                                      </li>} 
+                                    <li>
+                                      <NavLink to="/" onClick={() => {
+                                                                window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                                                              }}>
+                                        <img className='logo' src='http://micheledore.sites.3wa.io:9001/logo-cvb-definitif.svg' alt='Community VideoBox Logo'/> 
+                                      </NavLink>
+                                    </li> 
+                                    {/*Le information de connection sont récuperée dans le Reducer*/}
+                                    {!state.connected &&
+                                    <Fragment>
+                                      <li>
+                                        <NavLink to="/login">
+                                          LOGIN
+                                        </NavLink>
+                                      </li>
+                                    </Fragment>
+                                    }
+                                    {state.connected && 
+                                      <Fragment>
+                                        <li>
+                                          <NavLink to="/logout">
+                                            LOGOUT
+                                          </NavLink>
+                                        </li>
+                                        
+                                        {state.admin && 
+                                          <li>
+                                            <NavLink to="/admin">
+                                              ADMIN
+                                            </NavLink>
+                                          </li>
+                                        }
+                                      </Fragment>
+                                    }
+                                  </ul>
+                                </div>
         }
         </nav>
     </Fragment>

@@ -4,13 +4,16 @@ import VideoList from './components/VideoList.jsx'
 import Home from './components/Home.jsx'
 import Login from './components/Login.jsx'
 import Logout from './components/Logout.jsx'
-import Workshop from './components/Workshop'
+import Workshop from './components/workshop/Workshop'
 import Contents from './components/workshop/Contents.jsx'
 import Calendar from './components/workshop/Calendar.jsx'
 import Signup from './components/workshop/Signup.jsx'
 import MetaBox from './components/production/MetaBox.jsx'
 import Production from './components/Production'
-import Service from './components/Service'
+import Service from './components/service/Service'
+import BoxLease from './components/service/BoxLease'
+import Dlpali from './components/service/Dlpali'
+import Youth from './components/service/Youth'
 import Error404 from './components/Error404.jsx'
 import Middleware from './components/Middleware.jsx'
 import Admin from './components/administration/Admin.jsx'
@@ -31,6 +34,9 @@ function App({children}) {
         <Route path="/production" element={<Production />} /> {/* Vue principale */}
         <Route path='/metabox/:id' element={<MetaBox />}/> {/* Vue secondaire */}
         <Route path="/service" element={<Service />} /> {/* Vue principale */}
+        <Route path="/boxlease" element={<BoxLease />} /> {/* Vue principale */}
+        <Route path="/dlpali" element={<Dlpali />} /> {/* Vue principale */}
+        <Route path="/youth" element={<Youth />} /> {/* Vue principale */}
         <Route path="/login" element={<Login />} />
         <Route path='/admin/:name' element={<Middleware>{<Admin />}</Middleware>}/>
         <Route path='/admin' element={<Middleware>{<Admin />}</Middleware>}/>
