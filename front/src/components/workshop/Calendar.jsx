@@ -6,10 +6,10 @@ const Calendar = ()=>{
     const location = useLocation()
     return (
         <React.Fragment>
-            <div className="secondaryView">
+            <div className='secondaryView'>
                 <article className="article smallMargin aroundFlex column secondaryView">
                     <h2>Calendrier</h2>
-                    <div className="scroll maxWidth">
+                    <div className={`${location.pathname!=='/calendar' && "responsiveCalendar"} scroll maxWidth`}>
                         <img src="http://micheledore.sites.3wa.io:9001/images/calendrier.jpg" alt="Calendrier d'activités"/>
                     </div>
                 </article>

@@ -45,7 +45,7 @@ const Login= ()=>{
     
     return (
         <Fragment>
-            <div className='container bigPadding'>
+            <div className='container bigPadding smallView'>
                 {/*Ce composant est un modale qui permet à l'uilisateur de se connecter sans sortir de sa navigation*/}
                 <Modal show={register} onHide={showRegister}>
                     <Modal.Header >

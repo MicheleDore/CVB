@@ -45,6 +45,9 @@ const Comment = (props)=>{
         })
     }
     
+    /*L'utilisateur peut aussi effacer et modifier ses propres commentaires
+    L'administrateur à la possibilité d'effacer n'importe quel commentaire*/
+    
     const deleteComment = (commentId)=>{
         axios.post(`${BASE_URL}/delete/${commentId}`)
             .then((res)=>{
@@ -64,7 +67,6 @@ const Comment = (props)=>{
     }
     
     const updateComment = (e)=>{
-        console.log(newComment)
         e.preventDefault()
         axios.post(`${BASE_URL}/update/${commentToUpdate}`, {newComment})
             .then((res)=>{

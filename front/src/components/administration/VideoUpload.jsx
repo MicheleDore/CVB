@@ -64,7 +64,6 @@ const VideoUpload= (props)=>{
             }
             axios.post(`${BASE_URL}/admin`, videoData)
             .then((res)=> {
-                console.log(res.data)
                 setNotif(res.data)
             })
             .catch((err) => {

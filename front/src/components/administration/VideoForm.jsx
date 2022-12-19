@@ -26,7 +26,6 @@ const VideoForm= (props)=>{
 stocké dans le reducer par le composant ExtractEditions*/
 
     useEffect(()=>{
-        console.log(editionId)
         if(state.editions){
             if(state.editions[0].includes(parseInt(edition))){
                 state.editions[1].map((item,i) => {

@@ -86,6 +86,7 @@ body{
   margin: auto;
   width: 90%;
   text-align: center;
+  flex: 1;
 }
 
 .mainView{
@@ -94,6 +95,10 @@ body{
 
 .secondaryView{
   padding-top: 2rem;
+}
+
+.smallView{
+  padding-bottom: 12rem;
 }
 
 /*************************
@@ -170,6 +175,9 @@ p{
   margin: 0;
 }
 
+.image404{
+  height: 100vh;
+}
 /*************************
           FORMS
 **************************/
@@ -369,8 +377,7 @@ h2{
   background-color: var(--normal-blue);
   border-top: 1px solid black;
   color: var(--white);
-  bottom: 0;
-  font-size: 1rem;
+  font-size: 0.7rem;
   padding-bottom: 4rem;
 }
 
@@ -468,7 +475,7 @@ h2{
 }
 
 /*************************
-    DESKTOP RESPONSIVE
+       RESPONSIVE
 **************************/
 
 @media screen and (min-width: 768px){
@@ -498,7 +505,9 @@ h2{
   }
 }
 
-@media screen and (min-width: 990){
+@media screen and (min-width: 991px){
 
-  
+  .responsiveCalendar{
+    height: 23rem;
+  }
 }

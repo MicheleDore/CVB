@@ -24,7 +24,7 @@ const metaVote = (req, res)=>{
                  })
                 
             } else {
-                    res.json('One movie one vote')
+                    res.json({response: false, message:'One movie one vote'})
                         
             }
         })

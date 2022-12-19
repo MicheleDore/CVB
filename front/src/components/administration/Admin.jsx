@@ -21,7 +21,6 @@ const Admin= ()=>{
     const toggleButtons = ()=>{
         uploadBoxVideo? setUploadBoxVideo(false) : setUploadBoxVideo(true)
         uploadVideo? setUploadVideo(false) : setUploadVideo(true)
-        console.log(' uploadBoxVideo : '+ uploadBoxVideo + ' uploadVideo : '+  uploadVideo)
     }
     
     const metaboxVideoForm = ()=>{

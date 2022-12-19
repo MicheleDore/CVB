@@ -48,22 +48,17 @@ const Register= ()=>{
     return (
         <Fragment>
             <form className='aroundFlex column' onSubmit={submit}>
-                <label>Pseudo:
+                <label htmlFor="nickname">Pseudo :</label>
                     <input name='nickname' type='text' maxLength='36' value={nickname} onChange={(e) => setNickname(e.target.value)} required/>
-                </label>
-                <label>Mail:
+                <label htmlFor="email">Mail :</label>
                     <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type='email'  required/>
-                </label>
-                <label>Password:
+                <label htmlFor="password">Password :</label>
                     <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password' maxLength='36' required/>
-                </label>
                 <p>{notif}</p>
-                <label>Ville:
+                <label htmlFor="town">Ville (facultatif) :</label>
                     <input name='town' value={town} onChange={(e) => setTown(e.target.value)} type='text' maxLength='36'/>
-                </label>
-                <label>Quartier:
+                <label htmlFor="district">Quartier (facultatif) :</label>
                     <input name='district' value={district} onChange={(e) => setDistrict(e.target.value)} type='text' maxLength='36' />
-                </label>
                 <input type='submit' name='submit'/>
             </form>
         </Fragment>

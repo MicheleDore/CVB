@@ -23,19 +23,9 @@ const MetaBox = ()=>{
     const [choice, setChoice] = useState()
     const [loop, setLoop] = useState()
     const [vote, setVote] = useState('')
-    const [comment, setComment] = useState(false)
+    const [comment, setComment] = useState(true)
+    const [notif, setNotif] = useState('')
     let userId = state.userId
-    
-    const handleOrientation =()=>{
-        if (window.matchMedia("(orientation: portrait)").matches) {
-          setQuest('Tourne ton portable horizontalement')
-        } else {
-            setQuest('')
-        }
-        console.log('ciao')
-    }
-    
-    window.addEventListener("deviceorientation", handleOrientation, true)
     
     /* Au changement d'une vidéo, dans ce composant ou dans le state,
     l'affichage est mis à jour*/
@@ -67,7 +57,6 @@ const MetaBox = ()=>{
             dispatch({type:'onTopNav'})
         }
     }
-    
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
     }, [window.scrollY]);
@@ -103,11 +92,7 @@ const MetaBox = ()=>{
     
     useEffect(()=>{
         (state.choice && state.userChoices) && state.userChoices.map((item,i) => {
-                if(item === state.choice.id){
-                    setComment(true)
-                } else {
-                    setComment(false)
-                }
+                item !== state.choice.id && setComment(false)
             })
     },[state.choice])
     
@@ -141,7 +126,8 @@ const MetaBox = ()=>{
             vote
         })
         .then((res)=>{
-            res.data && setComment(true)
+            res.data.response && setComment(true)
+            setNotif(res.data.message)
         })
         .catch((err)=>{
             console.log(err)
@@ -166,12 +152,14 @@ const MetaBox = ()=>{
                 <video id='theatre' className="metaBoxVideo" src={url} preload="auto" autoPlay controlsList="nodownload" controls muted onEnded={startLoop}> Votre navigateur ne prend pas en charge les vidéos HTML5, merci d'utiliser un navigateur plus récent.</video>
                 <div className='container' >
                     <h5>{quest}</h5>
+                    <p>{notif}</p>
                     {/*L'utilisateur qui n'est pas connecté peut regarder la vidéo mais n'aura pas accés au choix tant qu'il reste deconnecté*/}
                     <h3>{(choice && state.connected && !comment) && 
                         <span>
                             <button onClick={makeChoiceA}>{state.choice.choice_A}</button>
                             <button onClick={makeChoiceB}>{state.choice.choice_B}</button>
-                        </span>}
+                        </span>
+                    }
                     </h3> 
                     {/*Le modal du Login permet à l'utilisateur de se connecter (et enregistrer) sans quitter la vue MetaBox*/}
                     {(choice && !state.connected) && <div className='smallMargin smallpadding'>

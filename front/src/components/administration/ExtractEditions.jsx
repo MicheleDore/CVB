@@ -26,7 +26,6 @@ const ExtractEditions= ()=>{
         }
         editionsPackage.push(editionsYears, editions, possibleEditions)
         dispatch({type:'editions', payload: editionsPackage})
-        console.log(editionsPackage)
     },[])
 }
 

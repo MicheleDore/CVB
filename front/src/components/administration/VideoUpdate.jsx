@@ -36,7 +36,6 @@ const VideoUpdate= (props)=>{
             console.log(state)
             axios.post(`${BASE_URL}/admin/update`, videoData)
             .then((res)=> {
-                console.log(res.data)
                 setNotif(res.data)
             })
             .catch((err) => {

@@ -8,7 +8,7 @@ const Youth = ()=>{
         <React.Fragment>
             <div className={`${location.pathname==='/youth' ? "secondaryView container" : 'responsiveService'}`}>
                 <article className="article smallMargin secondaryView aroundFlex column">
-                    <h2>Jaunesse</h2>
+                    <h2>Jeunesse</h2>
                     <div className={`${location.pathname==='/youth' && "responsiveContainer"} `}>
                         <img className={`image maxWidth ${location.pathname==='/youth' && "responsiveElement responsiveImage"}`}  src="http://micheledore.sites.3wa.io:9001/images/jeunesse.JPG" alt="Specs Box" />
                         <p className={`${location.pathname==='/youth' && "responsiveElement"} textAlignStart smallpadding`}>

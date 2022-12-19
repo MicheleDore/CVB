@@ -44,7 +44,7 @@ const uploadVideo = (req, res) => {
 
 /*La vidéo est copiée dans le dossier public dans le back et les informations liées sont enregistrées en BDD*/
 
-const addVideo = (params, upload, newFilename, other) => {
+const addVideo = (params, upload, newFilename, infos) => {
     const newVideo = `INSERT INTO videos (title, type, url, description, edition_id) VALUES (?,?,?,?,?)`
     let oldPath = upload.video.filepath
     let newPath = `public/videos/${newFilename}`
@@ -55,7 +55,7 @@ const addVideo = (params, upload, newFilename, other) => {
         })
         /*Si les données transmis par l'administrateur incluent le choix B, il faut ajouter une nouvelle interaction
         en BDD. Le choix B indique que la quatrième vidéo nécessaire au fonctionnement de la Metabox à été chargee.*/
-        other.choice_B && addChoice(other)
+        infos.choice_B && addChoice(infos)
     })
      return
 }

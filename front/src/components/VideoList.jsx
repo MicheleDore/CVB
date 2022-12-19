@@ -14,7 +14,6 @@ const VideoList = ({children}) => {
             .then((res)=>{
                 if(res.data.response){
                     dispatch({type:'videopick', payload: res.data.videos}) 
-                    console.log(state)
                 }
             })
             .catch((error)=>{

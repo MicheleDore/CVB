@@ -17,7 +17,6 @@ const NavBar = (props) => {
   const showWorkshop = ()=>{
     if(!menus.workshop){
        setMenus({workshop: true, prods: false, services:false})
-       console.log(menus)
     } else {
       setMenus({...menus, workshop: false})
     }

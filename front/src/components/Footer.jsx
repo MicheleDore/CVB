@@ -1,6 +1,7 @@
 import '../App.css'
 import React from 'react'
 const Footer = ()=>{
+    
     return (
         <React.Fragment>
             <footer id ="contacts" className=" aroundFlex column footer smallpadding maxWidth bigPadding">
